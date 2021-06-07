@@ -1,0 +1,8 @@
+.place__container-text{
+    margin: 0;
+    max-width: 282px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0 0 10px 10px;
+}
