@@ -12,5 +12,24 @@
 @import url('../blocks/profile/__avatar/profile__avatar.css');
 @import url('../blocks/profile/__button-add/profile__button-add.css');
 @import url('../blocks/profile/__container-name/profile__container-name.css');
+@import url('../blocks/profile/__edit-icon/profile__edit-icon.css');
 @import url('../blocks/profile/__description/profile__description.css');
 @import url('../blocks/profile/__name/profile__name.css');
+@import url('../blocks/profile/__container-name-edit/profile__container-name-edit.css');
+
+/*places*/
+
+@import url('../blocks/places/places.css');
+
+/*place*/
+
+@import url('../blocks/place/place.css');
+@import url('../blocks/place/__container-text/place__picture-text.css');
+@import url('../blocks/place/__icon-heart/place__icon-heart.css');
+@import url('../blocks/place/__name/place__name.css');
+@import url('../blocks/place/__picture/place__picture.css');
+
+/*footer*/
+
+@import url('..//blocks/footer/footer.css');
+@import url('../blocks/footer/__text/footer__text.css');
