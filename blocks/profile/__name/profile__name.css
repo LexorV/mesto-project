@@ -6,4 +6,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: #FFFFFF;
+    margin: 0;
+    padding: 22px 25px 16px 30px;
+    min-width: 294px;
 }

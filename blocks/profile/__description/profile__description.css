@@ -1,4 +1,4 @@
-.profilr__description {
+.profile__description {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -6,5 +6,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: #FFFFFF;
-    ;
+    max-width: 336px;
+    padding-left: 30px;
+    margin: 0;
 }
