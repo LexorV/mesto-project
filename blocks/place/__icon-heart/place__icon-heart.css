@@ -1,0 +1,3 @@
+.place__icon-heart:checked {
+    background-image: url('../../../images/Icon-heart_active.svg');
+}

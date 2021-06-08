@@ -1,6 +1,6 @@
-.place__container-text{
+.place__container-text {
     margin: 0;
-    max-width: 282px;
+    min-width: 282px;
     background-color: white;
     display: flex;
     justify-content: space-between;
