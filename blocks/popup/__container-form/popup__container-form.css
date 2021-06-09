@@ -1,0 +1,11 @@
+.popup__container-form {
+    width: 430px;
+    height: 330px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-top: 34px;
+    padding-bottom: 37px;
+}
