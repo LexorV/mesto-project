@@ -10,3 +10,8 @@
     text-align: center;
     color: white;
 }
+
+.popup__button-save:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

@@ -1,6 +1,8 @@
 .popup__container {
     display: flex;
     flex-direction: column;
-    min-width: 460px;
+    min-width: 488px;
     position: absolute;
+    align-self: center;
+    align-items: center;
 }
