@@ -4,3 +4,9 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 546px) {
+    .profile {
+        justify-content: center;
+    }
+}

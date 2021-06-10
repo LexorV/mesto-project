@@ -10,3 +10,14 @@
     padding: 22px 25px 16px 30px;
     min-width: 294px;
 }
+
+@media screen and (max-width: 450px) {
+    .profile__name {
+        font-size: 27px;
+        font-weight: 500;
+        line-height: 33px;
+        text-align: center;
+        min-width: 189px;
+        padding: 22px 10px 14px 0;
+    }
+}
