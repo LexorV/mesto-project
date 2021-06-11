@@ -13,3 +13,9 @@
     letter-spacing: 0em;
     text-align: left;
 }
+
+@media screen and (max-width: 500px) {
+    .popup__new-name {
+        max-width: 238px;
+    }
+}

@@ -6,3 +6,9 @@
     align-self: center;
     align-items: center;
 }
+
+@media screen and (max-width: 500px) {
+    .popup__container {
+        min-width: 282px;
+    }
+}
