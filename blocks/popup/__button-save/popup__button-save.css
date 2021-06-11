@@ -9,6 +9,7 @@
     letter-spacing: 0em;
     text-align: center;
     color: white;
+    border-radius: 2px;
 }
 
 .popup__button-save:hover {

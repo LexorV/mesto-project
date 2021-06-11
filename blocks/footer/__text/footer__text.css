@@ -6,6 +6,17 @@
     letter-spacing: 0em;
     text-align: left;
     color: #545454;
+    padding-top: 67px;
     padding-bottom: 60px;
     margin: 0;
+}
+
+@media screen and (max-width: 320px) {
+    .footer__text {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: left;
+        padding-top: 48px;
+        padding-bottom: 36px;
+    }
 }

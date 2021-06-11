@@ -8,6 +8,12 @@
     gap: 17px;
 }
 
+@media screen and (min-width:1500px) {
+    .places__list {
+        grid-template-columns: repeat(3, minmax(282px, 1fr))
+    }
+}
+
 
 /*@media screen and (max-width:920px) {
     .places__list {

@@ -16,3 +16,9 @@
         justify-content: center;
     }
 }
+
+@media screen and (max-width: 1080px) {
+    .profile {
+        padding: 40px 19px 50px 19px;
+    }
+}

@@ -5,6 +5,7 @@
     border: 2px solid #FFFFFF;
     align-self: center;
     margin-left: auto;
+    border-radius: 2px;
 }
 
 .profile__button-add:hover {
