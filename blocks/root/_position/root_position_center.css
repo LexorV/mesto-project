@@ -1,3 +1,9 @@
 .root_position_center {
     margin: 0, auto;
 }
+
+@media screen and (max-width: 320px) {
+    .root_position_center {
+        margin: 0;
+    }
+}

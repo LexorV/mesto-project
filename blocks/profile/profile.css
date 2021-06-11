@@ -5,7 +5,13 @@
     flex-wrap: wrap;
 }
 
-@media screen and (max-width: 546px) {
+@media screen and (max-width: 720px) {
+    .profile {
+        justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 390px) {
     .profile {
         justify-content: center;
     }
