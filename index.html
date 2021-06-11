@@ -9,17 +9,17 @@
     <title>MESTO</title>
 </head>
 
-<body class="root root_position_center ">
-    <section class="popup popup_opened">
-        <form action="" class="popup__container">
+<body class="root root_position_center">
+    <section class="popup">
+        <div class="popup__container">
             <button class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
-            <div class="popup__container-form">
+            <form class="popup__container-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <input class="popup__new-name" type="text">
                 <input class="popup__busy" type="text">
                 <button class="popup__button-save">Сохранить</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
     <header class="header">
         <div class="header__container">
@@ -28,7 +28,7 @@
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="./images/jak.png">
+            <img class="profile__avatar" alt="jak" src="./images/jak.png">
             <div class="profile__container-name">
                 <div class="profile__container-name-edit">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
