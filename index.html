@@ -10,13 +10,13 @@
 </head>
 
 <body class="root root_position_center">
-    <section class="popup">
+    <section id="popupEditProfile" class="popup">
         <div class="popup__container">
             <button type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
             <form name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input name="new-name" placeholder="Жак-Ив Кусто" class="popup__field" type="text">
-                <input name="new-busy" placeholder="Исследователь океана" class="popup__field" type="text">
+                <input id="newNameProfile" name="new-name" placeholder="Жак-Ив Кусто" class="popup__field" type="text">
+                <input id="newBusyProfile" name="new-busy" placeholder="Исследователь океана" class="popup__field" type="text">
                 <button type="submit" class="popup__button-save">Сохранить</button>
             </form>
         </div>
@@ -29,9 +29,9 @@
             <img class="profile__avatar" alt="Джак" src="./images/jak.png">
             <div class="profile__container-name">
                 <div class="profile__container-name-edit">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <h1 id="ProfileName" class="profile__name">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__edit-button"><img class="profile__edit-icon" src="./images/Edit__icon.svg" alt="Изменить"></button></div>
-                <p class="profile__description">Исследователь океана</p>
+                <p id="ProfileDescription" class="profile__description">Исследователь океана</p>
             </div>
             <button type="button" class="profile__button-add"><img class="profile__button-icon" src="./images/plus.svg" alt="плюс"></button>
         </section>
