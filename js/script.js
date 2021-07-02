@@ -9,9 +9,10 @@ const popupEditProfile = document.querySelector('#popupEditProfile');
 /**input**/
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
+
 /**text **/
-let ProfileName = document.querySelector('#ProfileName');
-let ProfileDescription = document.querySelector('#ProfileDescription');
+const ProfileName = document.querySelector('#ProfileName');
+const ProfileDescription = document.querySelector('#ProfileDescription');
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
     popupEditProfile.classList.add('popup_opened');
@@ -19,12 +20,9 @@ profileButtonEdit.addEventListener('click', function () {
 popupCloseButton.addEventListener('click' , function(){
     popupEditProfile.classList.remove('popup_opened');
 });
-popupButtonSave.addEventListener('click',function(){
+
+popupButtonSave.addEventListener('click', function(){
     ProfileName.textContent = newNameProfile.value;
     ProfileDescription.textContent = newBusyProfile.value;
-})
-
-
-
-
-
+    popupEditProfile.classList.remove('popup_opened');
+});
