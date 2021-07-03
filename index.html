@@ -12,12 +12,23 @@
 <body class="root root_position_center">
     <section id="popupEditProfile" class="popup">
         <div class="popup__container">
-            <button type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
+            <button id="buttonCloseProfile" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
             <form name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <input id="newNameProfile" name="new-name" placeholder="Жак-Ив Кусто" class="popup__field" type="text">
                 <input id="newBusyProfile" name="new-busy" placeholder="Исследователь океана" class="popup__field" type="text">
-                <button type="button" class="popup__button-save">Сохранить</button>
+                <button id="ProfileButtonSave" type="button" class="popup__button-save">Сохранить</button>
+            </form>
+        </div>
+    </section>
+    <section id="popupEditPlace" class="popup">
+        <div class="popup__container">
+            <button id="buttonClosePlace" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
+            <form name="edit-profile" class="popup__container-form">
+                <h2 class="popup__title">Новое место</h2>
+                <input id="newNamePlace" name="new-place" placeholder="Жак-Ив Кусто" class="popup__field" type="text">
+                <input id="newPicturePlace" name="new-picture" placeholder="Исследователь океана" class="popup__field" type="text">
+                <button id="PlaceButtonSave" type="button" class="popup__button-save">Создать</button>
             </form>
         </div>
     </section>
