@@ -1,0 +1,12 @@
+.place__remove {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    border: none;
+    top: 18px;
+    right: 15px;
+}
+
+.place__remove:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
