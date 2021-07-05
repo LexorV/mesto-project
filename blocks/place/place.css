@@ -1,7 +1,8 @@
 .place {
     margin: 0;
-    min-width: 282px;
+    min-height: 362px;
     display: flex;
     flex-direction: column;
     position: relative;
+    z-index: 0;
 }

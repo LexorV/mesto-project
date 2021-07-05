@@ -16,6 +16,33 @@ const newBusyProfile = document.querySelector('#newBusyProfile');
 /**text **/
 const ProfileName = document.querySelector('#ProfileName');
 const ProfileDescription = document.querySelector('#ProfileDescription');
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+creaturePlaces();
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
     popupEditProfile.classList.add('popup_opened');
@@ -36,34 +63,15 @@ buttonClosePlace.addEventListener('click' , function(){
     popupNewPlace.classList.remove('popup_opened');
 });
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
+  console.log(initialCards[0].name);
   function creaturePlaces(){
-      const Newplaces  = document.querySelector('#Newplaces');
-      
+      const placesMain  = document.querySelector('#Newplaces').content;
+      const placesList = document.querySelector('.places__list');
+      for (i=0; i <= 5; i++) {
+         const places = placesMain.cloneNode(true);
+         places.querySelector('.place__name').textContent = initialCards[i].name;
+         places.querySelector('.place__picture').src = initialCards[i].link;
+         placesList.append(places);
+      }
+
   };
-  creaturePlaces();
