@@ -12,7 +12,7 @@ const popupNewPlace = document.querySelector('#popupEditPlace');
 /**input**/
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
-
+let places1 = 0;
 /**text **/
 const ProfileName = document.querySelector('#ProfileName');
 const ProfileDescription = document.querySelector('#ProfileDescription');
@@ -42,6 +42,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 creaturePlaces();
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
@@ -62,7 +63,25 @@ popupButtonAdd.addEventListener('click' , function(){
 buttonClosePlace.addEventListener('click' , function(){
     popupNewPlace.classList.remove('popup_opened');
 });
+PlaceButtonSave.addEventListener('click', function(){
+    const NewNamePlace = document.querySelector('#newNamePlace').value;
+  const newPicturePlace = document.querySelector('#newPicturePlace').value;
+  if (NewNamePlace !== '' & newPicturePlace !== '') {
+  const NewCardsArray =  {
+    name: NewNamePlace,
+    link: newPicturePlace
+  };
+  initialCards.unshift(NewCardsArray);
+  initialCards.pop();
+  console.log(initialCards);
+  const NewCards  = document.querySelector('#Newplaces').content;
+  console.log(NewCards);
 
+
+  popupNewPlace.classList.remove('popup_opened');
+  return
+}
+});
   console.log(initialCards[0].name);
   function creaturePlaces(){
       const placesMain  = document.querySelector('#Newplaces').content;
