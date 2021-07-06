@@ -14,6 +14,8 @@ const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
 let places1 = 0;
 /**text **/
+const placesMain  = document.querySelector('#Newplaces').content;
+const placesList = document.querySelector('.places__list');
 const ProfileName = document.querySelector('#ProfileName');
 const ProfileDescription = document.querySelector('#ProfileDescription');
 const initialCards = [
@@ -64,7 +66,7 @@ buttonClosePlace.addEventListener('click' , function(){
     popupNewPlace.classList.remove('popup_opened');
 });
 PlaceButtonSave.addEventListener('click', function(){
-    const NewNamePlace = document.querySelector('#newNamePlace').value;
+  const NewNamePlace = document.querySelector('#newNamePlace').value;
   const newPicturePlace = document.querySelector('#newPicturePlace').value;
   if (NewNamePlace !== '' & newPicturePlace !== '') {
   const NewCardsArray =  {
@@ -73,19 +75,18 @@ PlaceButtonSave.addEventListener('click', function(){
   };
   initialCards.unshift(NewCardsArray);
   initialCards.pop();
-  console.log(initialCards);
   const NewCards  = document.querySelector('#Newplaces').content;
-  console.log(NewCards);
-
-
+  const Newplace = placesMain.cloneNode(true);
+  Newplace.querySelector('.place__name').textContent = initialCards[0].name;
+  Newplace.querySelector('.place__picture').src = initialCards[0].link;
+  placesList.prepend(Newplace);
+  placesList.removeChild(placesList.lastChild);
   popupNewPlace.classList.remove('popup_opened');
   return
 }
 });
   console.log(initialCards[0].name);
   function creaturePlaces(){
-      const placesMain  = document.querySelector('#Newplaces').content;
-      const placesList = document.querySelector('.places__list');
       for (i=0; i <= 5; i++) {
          const places = placesMain.cloneNode(true);
          places.querySelector('.place__name').textContent = initialCards[i].name;
