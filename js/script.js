@@ -65,33 +65,12 @@ popupButtonAdd.addEventListener('click' , function(){
 buttonClosePlace.addEventListener('click' , function(){
     popupNewPlace.classList.remove('popup_opened');
 });
-PlaceButtonSave.addEventListener('click', function(){
-  const NewNamePlace = document.querySelector('#newNamePlace').value;
-  const newPicturePlace = document.querySelector('#newPicturePlace').value;
-  if (NewNamePlace !== '' & newPicturePlace !== '') {
-  const NewCardsArray =  {
-    name: NewNamePlace,
-    link: newPicturePlace
-  };
-  initialCards.unshift(NewCardsArray);
-  initialCards.pop();
-  const NewCards  = document.querySelector('#Newplaces').content;
+const reaturePlaces = (initialCards) => {
   const Newplace = placesMain.cloneNode(true);
-  Newplace.querySelector('.place__name').textContent = initialCards[0].name;
-  Newplace.querySelector('.place__picture').src = initialCards[0].link;
-  placesList.prepend(Newplace);
-  placesList.removeChild(placesList.lastChild);
-  popupNewPlace.classList.remove('popup_opened');
-  return
+  const PlacePicture = Newplace.querySelector('.place__picture');
+  const removeButton = Newplace.querySelector('.place__remove');
+  const placeName = Newplace.querySelector('.place__name');
+  const buttonHeart = Newplace.querySelector('.place__button-heart');
+  PlacePicture.setAttribute('src',initialCards.link);
+  placeName.setAttribute('src',initialCards.name);
 }
-});
-  console.log(initialCards[0].name);
-  function creaturePlaces(){
-      for (i=0; i <= 5; i++) {
-         const places = placesMain.cloneNode(true);
-         places.querySelector('.place__name').textContent = initialCards[i].name;
-         places.querySelector('.place__picture').src = initialCards[i].link;
-         placesList.append(places);
-      }
-
-  };
