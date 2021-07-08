@@ -7,14 +7,12 @@ const buttonClosePlace  =document.querySelector('#buttonClosePlace');
 const placeButtonHeart = document.querySelectorAll('.place__button-heart');
 const popupButtonAdd = document.querySelector('.profile__button-add');
 /** container **/
-const popupEditProfile = document.querySelector('#popupEditProfile');
 const popupNewPlace = document.querySelector('#popupEditPlace');
+const popupEditProfile = document.querySelector('#popupEditProfile');
 /**input**/
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
-let places1 = 0;
 /**text **/
-const placesMain  = document.querySelector('#Newplaces').content;
 const placesList = document.querySelector('.places__list');
 const ProfileName = document.querySelector('#ProfileName');
 const ProfileDescription = document.querySelector('#ProfileDescription');
@@ -44,33 +42,57 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+function OpenPopap(form) {
+form.classList.add('popup_opened');
+};
+function ClosePopap(form) {
+  form.classList.remove('popup_opened');
+}
+function SaveNamePersonal() {
+  ProfileName.textContent = newNameProfile.value;
+  ProfileDescription.textContent = newBusyProfile.value;
+  ClosePopap(popupEditProfile);
+};
 
-creaturePlaces();
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
-    popupEditProfile.classList.add('popup_opened');
+  OpenPopap(popupEditProfile);
 });
 buttonCloseProfile.addEventListener('click' , function(){
-    popupEditProfile.classList.remove('popup_opened');
+  ClosePopap(popupEditProfile);
+});
+popupButtonAdd.addEventListener('click' , function(){
+  OpenPopap(popupNewPlace);
+})
+buttonClosePlace.addEventListener('click' , function(){
+  ClosePopap(popupNewPlace);
 });
 
 popupButtonSave.addEventListener('click', function(){
-    ProfileName.textContent = newNameProfile.value;
-    ProfileDescription.textContent = newBusyProfile.value;
-    popupEditProfile.classList.remove('popup_opened');
+  SaveNamePersonal();
 });
-popupButtonAdd.addEventListener('click' , function(){
-    popupNewPlace.classList.add('popup_opened');
-})
-buttonClosePlace.addEventListener('click' , function(){
-    popupNewPlace.classList.remove('popup_opened');
-});
-const reaturePlaces = (initialCards) => {
-  const Newplace = placesMain.cloneNode(true);
-  const PlacePicture = Newplace.querySelector('.place__picture');
-  const removeButton = Newplace.querySelector('.place__remove');
-  const placeName = Newplace.querySelector('.place__name');
-  const buttonHeart = Newplace.querySelector('.place__button-heart');
-  PlacePicture.setAttribute('src',initialCards.link);
-  placeName.setAttribute('src',initialCards.name);
+
+function reaturePlaces(data) {
+  const placesMain  = document.querySelector('#Newplaces').content;
+  const NewPlace = placesMain.cloneNode(true);
+  const PlacePicture = NewPlace.querySelector('.place__picture');
+  const removeButton = NewPlace.querySelector('.place__remove');
+  const placeName = NewPlace.querySelector('.place__name');
+  const buttonHeart = NewPlace.querySelector('.place__button-heart');
+  PlacePicture.setAttribute('src', data.link);
+  PlacePicture.setAttribute('alt', data.name);
+  placeName.textContent = data.name;
+  removeButton.addEventListener('click', function(){
+    console.log('test');
+    NewPlace.remove();
+  });
+  return NewPlace;
+};
+function addPlace(data, container) {
+const place =  reaturePlaces(data)
+container.prepend(place);
+};
+
+for (i=0; i<=5; i++) {
+  addPlace(initialCards[i], placesList )
 }
