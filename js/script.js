@@ -3,9 +3,8 @@ const profileButtonAdd = document.querySelector('.profile__button-add');
 const profileButtonEdit = document.querySelector('.profile__edit-button');
 const popupButtonSave = document.querySelector('#ProfileButtonSave');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
-const buttonClosePlace  =document.querySelector('#buttonClosePlace');
-const placeButtonHeart = document.querySelectorAll('.place__button-heart');
 const popupButtonAdd = document.querySelector('.profile__button-add');
+const PlaceButtonSave = document.querySelector('#PlaceButtonSave');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
 const popupEditProfile = document.querySelector('#popupEditProfile');
@@ -71,10 +70,25 @@ buttonClosePlace.addEventListener('click' , function(){
 popupButtonSave.addEventListener('click', function(){
   SaveNamePersonal();
 });
-
+PlaceButtonSave.addEventListener('click', function(){
+  const NewNamePlace = document.querySelector('#newNamePlace').value;
+  const newPicturePlace = document.querySelector('#newPicturePlace').value;
+  if (NewNamePlace !== '' & newPicturePlace !== '') {
+  while (i<999) {
+    i = 0;
+    const NewCardsArray =  {
+      name: NewNamePlace,
+      link: newPicturePlace
+    };
+    initialCards.unshift(NewCardsArray);
+  addPlace(initialCards[i], placesList);
+  i++;
+  break
+  }
+}});
 function reaturePlaces(data) {
   const placesMain  = document.querySelector('#Newplaces').content;
-  const NewPlace = placesMain.cloneNode(true);
+  const NewPlace = placesMain.querySelector('.place').cloneNode(true);
   const PlacePicture = NewPlace.querySelector('.place__picture');
   const removeButton = NewPlace.querySelector('.place__remove');
   const placeName = NewPlace.querySelector('.place__name');
@@ -86,8 +100,13 @@ function reaturePlaces(data) {
     console.log('test');
     NewPlace.remove();
   });
+  buttonHeart.addEventListener('click' , function() {
+    buttonHeart.classList.toggle('place__button-heart_active');
+  });
+
   return NewPlace;
 };
+
 function addPlace(data, container) {
 const place =  reaturePlaces(data)
 container.prepend(place);
