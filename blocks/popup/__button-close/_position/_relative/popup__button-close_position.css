@@ -1,0 +1,11 @@
+.popup__button-close_position_relative {
+    position: relative;
+    left: 28px;
+    bottom: 5px;
+}
+@media screen and (max-width: 500px) {
+    .popup__button-close_position_relative {
+    left: 18px;
+    bottom: 3px;
+    }
+}

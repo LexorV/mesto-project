@@ -83,6 +83,7 @@ PlaceButtonSave.addEventListener('click', function(){
     initialCards.unshift(NewCardsArray);
   addPlace(initialCards[i], placesList);
   i++;
+  ClosePopap(popupNewPlace);
   break
   }
 }});
@@ -102,6 +103,9 @@ function reaturePlaces(data) {
   });
   buttonHeart.addEventListener('click' , function() {
     buttonHeart.classList.toggle('place__button-heart_active');
+  });
+  PlacePicture.addEventListener('click' , function() {
+console.log('test')
   });
 
   return NewPlace;
