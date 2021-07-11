@@ -5,16 +5,21 @@ const popupButtonSave = document.querySelector('#ProfileButtonSave');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
 const popupButtonAdd = document.querySelector('.profile__button-add');
 const PlaceButtonSave = document.querySelector('#PlaceButtonSave');
+const CloseBigPicture =document.querySelector('#CloseBigPicture');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
 const popupEditProfile = document.querySelector('#popupEditProfile');
+const popupBigPlace = document.querySelector('#popupBigPlace');
 /**input**/
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
 /**text **/
+const BigPlaceList = document.querySelector('.popup__list')
 const placesList = document.querySelector('.places__list');
 const ProfileName = document.querySelector('#ProfileName');
 const ProfileDescription = document.querySelector('#ProfileDescription');
+const BigPicturePlace = document.querySelector('#BigPicturePlace');
+const BigPlacetext = document.querySelector('#BigPictureName');
 const initialCards = [
   {
     name: 'Архыз',
@@ -41,6 +46,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+function ChengeBigPlace(data, elementPicture, elementText){
+  elementPicture.setAttribute('src', data.link);
+  elementPicture.setAttribute('alt', data.name);
+  elementText.textContent = data.name;
+  return elementPicture, elementText
+}
 function OpenPopap(form) {
 form.classList.add('popup_opened');
 };
@@ -52,7 +63,6 @@ function SaveNamePersonal() {
   ProfileDescription.textContent = newBusyProfile.value;
   ClosePopap(popupEditProfile);
 };
-
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
   OpenPopap(popupEditProfile);
@@ -62,6 +72,7 @@ buttonCloseProfile.addEventListener('click' , function(){
 });
 popupButtonAdd.addEventListener('click' , function(){
   OpenPopap(popupNewPlace);
+  console.log(popupBigPlace);
 })
 buttonClosePlace.addEventListener('click' , function(){
   ClosePopap(popupNewPlace);
@@ -70,6 +81,7 @@ buttonClosePlace.addEventListener('click' , function(){
 popupButtonSave.addEventListener('click', function(){
   SaveNamePersonal();
 });
+
 PlaceButtonSave.addEventListener('click', function(){
   const NewNamePlace = document.querySelector('#newNamePlace').value;
   const newPicturePlace = document.querySelector('#newPicturePlace').value;
@@ -105,17 +117,36 @@ function reaturePlaces(data) {
     buttonHeart.classList.toggle('place__button-heart_active');
   });
   PlacePicture.addEventListener('click' , function() {
-console.log('test')
+    ChengeBigPlace(data, BigPicturePlace, BigPlacetext);
+    console.log(popupBigPlace);
+    OpenPopap(popupBigPlace);
   });
-
   return NewPlace;
 };
-
+/**function AddBigPlace(data) {
+  const PopupBigPlaceMain = document.querySelector('#popupBigPlace').content;
+  const BigPlaceNew =  PopupBigPlaceMain.querySelector('.popup').cloneNode(true);
+  const PopupButtonClose = BigPlaceNew.querySelector('.popup__button-close');
+  const PopupPicturePlace = BigPlaceNew.querySelector('.popup__picture-place');
+  const PopupNamePlace = BigPlaceNew.querySelector('.popup__name-place');
+  PopupPicturePlace.setAttribute('src', data.link);
+  PopupPicturePlace.setAttribute('alt', data.link);
+  PopupNamePlace.textContent = data.name;
+  PopupButtonClose.addEventListener('click', function(){
+    ClosePopap(BigPlaceNew);
+  });
+return BigPlaceNew
+}*/
 function addPlace(data, container) {
-const place =  reaturePlaces(data)
+const place = reaturePlaces(data);
 container.prepend(place);
 };
 
 for (i=0; i<=5; i++) {
-  addPlace(initialCards[i], placesList )
+  addPlace(initialCards[i], placesList);
 }
+console.log(CloseBigPicture);
+CloseBigPicture.addEventListener('click', function(){
+  ClosePopap(popupBigPlace);
+  //ClosePopap(popupBigPlace);
+});
