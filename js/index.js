@@ -123,20 +123,6 @@ function reaturePlaces(data) {
   });
   return NewPlace;
 };
-/**function AddBigPlace(data) {
-  const PopupBigPlaceMain = document.querySelector('#popupBigPlace').content;
-  const BigPlaceNew =  PopupBigPlaceMain.querySelector('.popup').cloneNode(true);
-  const PopupButtonClose = BigPlaceNew.querySelector('.popup__button-close');
-  const PopupPicturePlace = BigPlaceNew.querySelector('.popup__picture-place');
-  const PopupNamePlace = BigPlaceNew.querySelector('.popup__name-place');
-  PopupPicturePlace.setAttribute('src', data.link);
-  PopupPicturePlace.setAttribute('alt', data.link);
-  PopupNamePlace.textContent = data.name;
-  PopupButtonClose.addEventListener('click', function(){
-    ClosePopap(BigPlaceNew);
-  });
-return BigPlaceNew
-}*/
 function addPlace(data, container) {
 const place = reaturePlaces(data);
 container.prepend(place);
