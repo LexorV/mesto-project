@@ -68,6 +68,25 @@ function saveNamePersonal() {
   profileDescription.textContent = newBusyProfile.value;
   closePopup(popupEditProfile);
 };
+//new
+function checkValidInput(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    console.log('test')
+  } else {
+    console.log('testerr')
+  }
+}
+function activeValidForm() {
+  const formList = Array.from(editPlaceForm.querySelectorAll('.popup__field'));
+  formList.forEach((el) => {
+    console.log(el);
+    el.addEventListener('input', function () {
+
+    });
+
+  })
+}
+activeValidForm()
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
   openPopup(popupEditProfile);
