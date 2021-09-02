@@ -9,9 +9,11 @@
     margin: 0;
     padding: 22px 25px 16px 30px;
     min-width: 294px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 546px) {
+@media screen and (max-width: 552px) {
     .profile__name {
         font-size: 27px;
         font-weight: 500;

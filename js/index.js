@@ -1,25 +1,26 @@
 /**Button **/
 const profileButtonAdd = document.querySelector('.profile__button-add');
 const profileButtonEdit = document.querySelector('.profile__edit-button');
-const popupButtonSave = document.querySelector('#ProfileButtonSave');
+const popupButtonSave = document.querySelector('#profileButtonSave');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
 const popupButtonAdd = document.querySelector('.profile__button-add');
-const PlaceButtonSave = document.querySelector('#PlaceButtonSave');
-const CloseBigPicture =document.querySelector('#CloseBigPicture');
+const placeButtonSave = document.querySelector('#placeButtonSave');
+const closeBigPicture =document.querySelector('#closeBigPicture');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const popupBigPlace = document.querySelector('#popupBigPlace');
+const editPlaceForm = document.querySelector('#editPlaceForm');
+const editProfileForm = document.querySelector('#editProfileForm');
 /**input**/
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
 /**text **/
-const BigPlaceList = document.querySelector('.popup__list')
 const placesList = document.querySelector('.places__list');
-const ProfileName = document.querySelector('#ProfileName');
-const ProfileDescription = document.querySelector('#ProfileDescription');
-const BigPicturePlace = document.querySelector('#BigPicturePlace');
-const BigPlacetext = document.querySelector('#BigPictureName');
+const profileName = document.querySelector('#profileName');
+const profileDescription = document.querySelector('#profileDescription');
+const bigPicturePlace = document.querySelector('#bigPicturePlace');
+const bigPlacetext = document.querySelector('#bigPictureName');
 const initialCards = [
   {
     name: 'Архыз',
@@ -46,93 +47,89 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-function ChengeBigPlace(data, elementPicture, elementText){
+function chengeBigPlace(data, elementPicture, elementText){
   elementPicture.setAttribute('src', data.link);
   elementPicture.setAttribute('alt', data.name);
   elementText.textContent = data.name;
-  return elementPicture, elementText
 }
-function OpenPopap(form) {
+function openPopup(form) {
 form.classList.add('popup_opened');
 };
-function ClosePopap(form) {
+function closePopup(form) {
   form.classList.remove('popup_opened');
 }
-function SaveNamePersonal() {
-  ProfileName.textContent = newNameProfile.value;
-  ProfileDescription.textContent = newBusyProfile.value;
-  ClosePopap(popupEditProfile);
+function initinalProfile(){
+  newNameProfile.value = profileName.textContent;
+  newBusyProfile.value = profileDescription.textContent;
+}
+initinalProfile();
+function saveNamePersonal() {
+  profileName.textContent = newNameProfile.value;
+  profileDescription.textContent = newBusyProfile.value;
+  closePopup(popupEditProfile);
 };
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function () {
-  OpenPopap(popupEditProfile);
+  openPopup(popupEditProfile);
 });
 buttonCloseProfile.addEventListener('click' , function(){
-  ClosePopap(popupEditProfile);
+  closePopup(popupEditProfile);
 });
 popupButtonAdd.addEventListener('click' , function(){
-  OpenPopap(popupNewPlace);
-  console.log(popupBigPlace);
+  openPopup(popupNewPlace);
 })
 buttonClosePlace.addEventListener('click' , function(){
-  ClosePopap(popupNewPlace);
+  closePopup(popupNewPlace);
 });
 
-popupButtonSave.addEventListener('click', function(){
-  SaveNamePersonal();
+editProfileForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  saveNamePersonal();
 });
 
-PlaceButtonSave.addEventListener('click', function(){
-  const NewNamePlace = document.querySelector('#newNamePlace').value;
+editPlaceForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const newNamePlace = document.querySelector('#newNamePlace').value;
   const newPicturePlace = document.querySelector('#newPicturePlace').value;
-  if (NewNamePlace !== '' & newPicturePlace !== '') {
-  while (i<999) {
-    i = 0;
-    const NewCardsArray =  {
-      name: NewNamePlace,
+    const newCardsArray =  {
+      name: newNamePlace,
       link: newPicturePlace
     };
-    initialCards.unshift(NewCardsArray);
-  addPlace(initialCards[i], placesList);
-  i++;
-  ClosePopap(popupNewPlace);
-  break
-  }
-}});
+  addPlace(newCardsArray, placesList);
+  closePopup(popupNewPlace);
+});
 function reaturePlaces(data) {
-  const placesMain  = document.querySelector('#Newplaces').content;
-  const NewPlace = placesMain.querySelector('.place').cloneNode(true);
-  const PlacePicture = NewPlace.querySelector('.place__picture');
-  const removeButton = NewPlace.querySelector('.place__remove');
-  const placeName = NewPlace.querySelector('.place__name');
-  const buttonHeart = NewPlace.querySelector('.place__button-heart');
-  PlacePicture.setAttribute('src', data.link);
-  PlacePicture.setAttribute('alt', data.name);
+  const placesMain  = document.querySelector('#newplaces').content;
+  const newPlace = placesMain.querySelector('.place').cloneNode(true);
+  const placePicture = newPlace.querySelector('.place__picture');
+  const removeButton = newPlace.querySelector('.place__remove');
+  const placeName = newPlace.querySelector('.place__name');
+  const buttonHeart = newPlace.querySelector('.place__button-heart');
+  placePicture.setAttribute('src', data.link);
+  placePicture.setAttribute('alt', data.name);
   placeName.textContent = data.name;
   removeButton.addEventListener('click', function(){
-    console.log('test');
-    NewPlace.remove();
+    newPlace.remove();
   });
   buttonHeart.addEventListener('click' , function() {
     buttonHeart.classList.toggle('place__button-heart_active');
   });
-  PlacePicture.addEventListener('click' , function() {
-    ChengeBigPlace(data, BigPicturePlace, BigPlacetext);
-    console.log(popupBigPlace);
-    OpenPopap(popupBigPlace);
+  placePicture.addEventListener('click' , function() {
+    chengeBigPlace(data, bigPicturePlace, bigPlacetext);
+    openPopup(popupBigPlace);
   });
-  return NewPlace;
+  return newPlace;
 };
 function addPlace(data, container) {
 const place = reaturePlaces(data);
 container.prepend(place);
 };
+initialCards.forEach(element => {
+element =  addPlace(element, placesList);
+  return element
+});
 
-for (i=0; i<=5; i++) {
-  addPlace(initialCards[i], placesList);
-}
-console.log(CloseBigPicture);
-CloseBigPicture.addEventListener('click', function(){
-  ClosePopap(popupBigPlace);
+closeBigPicture.addEventListener('click', function(){
+  closePopup(popupBigPlace);
   //ClosePopap(popupBigPlace);
 });

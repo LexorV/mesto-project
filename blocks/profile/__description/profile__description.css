@@ -6,17 +6,22 @@
     letter-spacing: 0em;
     text-align: left;
     color: #FFFFFF;
-    max-width: 336px;
+    min-width: 336px;
     padding-left: 30px;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 546px) {
+
+
+@media screen and (max-width: 552px) {
     .profile__description {
         font-size: 14px;
         font-style: normal;
         line-height: 17px;
         text-align: center;
         padding: 0;
+        min-width: 200px;
     }
 }
