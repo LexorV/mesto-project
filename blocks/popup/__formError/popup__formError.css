@@ -1,0 +1,13 @@
+.popup__formError {
+    color: red;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    padding-top: 5px;
+    display: flex;
+    text-align: left;
+    align-self: flex-start;
+    padding-left: 36px;
+    min-height: 30px;
+    visibility: hidden;
+}

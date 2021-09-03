@@ -11,6 +11,7 @@
     color: white;
     border-radius: 2px;
     border: none;
+    margin-top: 18px;
 }
 
 .popup__button-save:hover {
