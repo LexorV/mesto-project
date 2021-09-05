@@ -73,31 +73,71 @@ function saveNamePersonal() {
     closePopup(popupEditProfile);
 };
 //new
-function showInputError(form) {
-
+function showInputError(inputElement, errorMassageEl) {
+    errorMassageEl.classList.add('popup__formError_active');
+    errorMassageEl.textContent = inputElement.validationMessage;
+    inputElement.classList.add('popup__field_error');
 }
 
-function checkValidInput(formElement, inputElement) {
+function hideInputError(inputElement, errorMassageEl) {
+    errorMassageEl.classList.remove('popup__formError_active');
+    inputElement.classList.remove('popup__field_error');
+    errorMassageEl.textContent = '';
+}
+
+function checkValidInput(inputElement, errorMassageEl) {
     if (!inputElement.validity.valid) {
-        console.log('test')
+        showInputError(inputElement, errorMassageEl);
     } else {
-        console.log('testerr')
+        hideInputError(inputElement, errorMassageEl);
     }
 }
 
-function activeValidForm() {
-    const formList = Array.from(editPlaceForm.querySelectorAll('.popup__field'));
-    formList.forEach((el) => {
-        // console.log(el);
-        el.addEventListener('input', function(evt) {
-            console.log(evt.target.validity.valid);
-
-        });
-
+function hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
     })
 }
-activeValidForm()
-    /** Event handler **/
+
+function toggleButtonState(inputList, button) {
+    if (hasInvalidInput(inputList)) {
+        button.classList.remove('popup__button-save_active');
+        button.setAttribute('disabled', '');
+    } else {
+        button.classList.add('popup__button-save_active');
+        button.removeAttribute('disabled', '');
+    }
+}
+
+function activeValidForm(form) {
+    const formList = Array.from(form.querySelectorAll('.popup__field'));
+    const errorMassageList = Array.from(form.querySelectorAll('.popup__formError'));
+    const buttonSave = form.querySelector('.popup__button-save');
+    let number = 0;
+    formList.forEach((el) => {
+        let errorMassage = errorMassageList[number];
+        el.addEventListener('input', function() {
+            checkValidInput(el, errorMassage);
+            toggleButtonState(formList, buttonSave);
+        });
+        number = number + 1;
+    })
+}
+
+function cleanerForm(form) {
+    const formList = Array.from(form.querySelectorAll('.popup__field'));
+    const buttonSave = form.querySelector('.popup__button-save');
+    formList.forEach((el) => {
+        el.value = '';
+    })
+    buttonSave.setAttribute('disabled', '');
+    buttonSave.classList.remove('popup__button-save_active');
+
+}
+activeValidForm(editPlaceForm);
+activeValidForm(editProfileForm);
+
+/** Event handler **/
 profileButtonEdit.addEventListener('click', function() {
     openPopup(popupEditProfile);
 });
@@ -114,6 +154,7 @@ buttonClosePlace.addEventListener('click', function() {
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     saveNamePersonal();
+    cleanerForm(editProfileForm);
 });
 
 editPlaceForm.addEventListener('submit', function(event) {
@@ -125,6 +166,7 @@ editPlaceForm.addEventListener('submit', function(event) {
         link: newPicturePlace
     };
     addPlace(newCardsArray, placesList);
+    cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
 });
 

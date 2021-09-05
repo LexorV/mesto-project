@@ -13,26 +13,26 @@
     <section id="popupEditProfile" class="popup">
         <div class="popup__container">
             <button id="buttonCloseProfile" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
-            <form id="editProfileForm" name="edit-profile" class="popup__container-form">
+            <form novalidate id="editProfileForm" name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input id="newNameProfile" required name="new-name" placeholder="Имя" class="popup__field" type="text">
-                <span class="popup__formError">test</span>
-                <input id="newBusyProfile" required name="new-busy" placeholder="Профессиональная деятельность" class="popup__field" type="text">
+                <input id="newNameProfile" minlength="2" maxlength="40" required name="new-name" placeholder="Имя" class="popup__field" type="text">
                 <span class="popup__formError"></span>
-                <button id="profileButtonSave" type="submit" class="popup__button-save">Сохранить</button>
+                <input id="newBusyProfile" minlength="2" maxlength="200" required name="new-busy" placeholder="Профессиональная деятельность" class="popup__field" type="text">
+                <span class="popup__formError"></span>
+                <button id="profileButtonSave" disabled type="submit" class="popup__button-save">Сохранить</button>
             </form>
         </div>
     </section>
     <section id="popupEditPlace" class="popup">
         <div class="popup__container">
             <button id="buttonClosePlace" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
-            <form id="editPlaceForm" name="edit-profile" class="popup__container-form">
+            <form novalidate id="editPlaceForm" name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Новое место</h2>
-                <input id="newNamePlace" required name="new-place" placeholder="место" class="popup__field" type="text">
+                <input id="newNamePlace" minlength="2" maxlength="30" required name="new-place" placeholder="место" class="popup__field" type="text">
                 <span class="popup__formError"></span>
                 <input id="newPicturePlace" required name="new-picture" placeholder="URL" class="popup__field" type="url">
                 <span class="popup__formError"></span>
-                <button id="placeButtonSave" type="submit" class="popup__button-save">Создать</button>
+                <button id="placeButtonSave" disabled type="submit" class="popup__button-save">Создать</button>
             </form>
         </div>
     </section>
