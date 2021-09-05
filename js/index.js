@@ -61,6 +61,19 @@ function closePopup(form) {
     form.classList.remove('popup_opened');
 }
 
+function closePopupAll() {
+    const popapAll = Array.from(document.querySelectorAll('.popup'));
+    popapAll.forEach((el) => {
+        el.addEventListener('click', (e) => {
+            if (e.target == e.currentTarget) {
+                closePopup(el);
+            }
+        });
+    })
+}
+closePopupAll();
+
+
 function initinalProfile() {
     newNameProfile.value = profileName.textContent;
     newBusyProfile.value = profileDescription.textContent;
@@ -132,7 +145,6 @@ function cleanerForm(form) {
     })
     buttonSave.setAttribute('disabled', '');
     buttonSave.classList.remove('popup__button-save_active');
-
 }
 activeValidForm(editPlaceForm);
 activeValidForm(editProfileForm);
@@ -156,6 +168,7 @@ editProfileForm.addEventListener('submit', function(event) {
     saveNamePersonal();
     cleanerForm(editProfileForm);
 });
+
 
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
