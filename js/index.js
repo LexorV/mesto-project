@@ -64,6 +64,11 @@ function closePopup(form) {
 function closePopupAll() {
     const popapAll = Array.from(document.querySelectorAll('.popup'));
     popapAll.forEach((el) => {
+        document.addEventListener('keydown', function(evt) {
+            if (evt.key == 'Escape') {
+                closePopup(el);
+            }
+        })
         el.addEventListener('click', (e) => {
             if (e.target == e.currentTarget) {
                 closePopup(el);
@@ -137,6 +142,7 @@ function activeValidForm(form) {
     })
 }
 
+
 function cleanerForm(form) {
     const formList = Array.from(form.querySelectorAll('.popup__field'));
     const buttonSave = form.querySelector('.popup__button-save');
@@ -149,6 +155,7 @@ function cleanerForm(form) {
 activeValidForm(editPlaceForm);
 activeValidForm(editProfileForm);
 
+
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function() {
     openPopup(popupEditProfile);
@@ -158,7 +165,7 @@ buttonCloseProfile.addEventListener('click', function() {
 });
 popupButtonAdd.addEventListener('click', function() {
     openPopup(popupNewPlace);
-})
+});
 buttonClosePlace.addEventListener('click', function() {
     closePopup(popupNewPlace);
 });
