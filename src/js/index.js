@@ -1,4 +1,11 @@
 /**Button **/
+import '../pages/index.css';
+import bryantImage from '../images/Logo.svg';
+const whoIsTheGoat = [
+    // меняем исходные пути на переменные
+    { name: 'Kobe Bryant', link: bryantImage }
+];
+
 const profileButtonAdd = document.querySelector('.profile__button-add');
 const profileButtonEdit = document.querySelector('.profile__edit-button');
 const popupButtonSave = document.querySelector('#profileButtonSave');
