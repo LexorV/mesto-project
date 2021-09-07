@@ -1,9 +1,23 @@
 /**Button **/
 import '../pages/index.css';
-import bryantImage from '../images/Logo.svg';
+import Logo from '../images/Logo.svg';
+import close_icon from '../images/close_Icon.svg';
+import Jak from '../images/jak.png';
+import Edit__icon from '../images/Edit__icon.svg';
+import plus from '../images/plus.svg';
+import basket from '../images/basket.png';
+import iconHeart from '../images/Icon-heart.svg';
+
+
 const whoIsTheGoat = [
     // меняем исходные пути на переменные
-    { name: 'Kobe Bryant', link: bryantImage }
+    { name: 'Logo', link: Logo },
+    { name: 'close_Icon', link: close_icon },
+    { name: 'Jak', link: Jak },
+    { name: 'Edit__icon', link: Edit__icon },
+    { name: 'plus', link: plus },
+    { name: 'basket', link: basket },
+    { name: 'iconHeart', link: iconHeart },
 ];
 
 const profileButtonAdd = document.querySelector('.profile__button-add');

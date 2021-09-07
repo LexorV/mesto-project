@@ -12,7 +12,7 @@
 <body class="root root_position_center">
     <section id="popupEditProfile" class="popup">
         <div class="popup__container">
-            <button id="buttonCloseProfile" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
+            <button id="buttonCloseProfile" type="button" class="popup__button-close"><img class="popup__close-icon" src="<%=require('./images/close_Icon.svg')%>" alt="закрыть"></button>
             <form novalidate id="editProfileForm" name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <input id="newNameProfile" minlength="2" maxlength="40" required name="new-name" placeholder="Имя" class="popup__field" type="text">
@@ -25,7 +25,7 @@
     </section>
     <section id="popupEditPlace" class="popup">
         <div class="popup__container">
-            <button id="buttonClosePlace" type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
+            <button id="buttonClosePlace" type="button" class="popup__button-close"><img class="popup__close-icon" src="<%=require('./images/close_Icon.svg')%>" alt="закрыть"></button>
             <form novalidate id="editPlaceForm" name="edit-profile" class="popup__container-form">
                 <h2 class="popup__title">Новое место</h2>
                 <input id="newNamePlace" minlength="2" maxlength="30" required name="new-place" placeholder="место" class="popup__field" type="text">
@@ -38,7 +38,7 @@
     </section>
     <div id="popupBigPlace" class="popup popup_dark-background">
         <div class="popup__container-place">
-            <button id="closeBigPicture" type="button" class="popup__button-close popup__button-close_position_relative"><img class="popup__close-icon" src="./images/close_Icon.svg" alt="закрыть"></button>
+            <button id="closeBigPicture" type="button" class="popup__button-close popup__button-close_position_relative"><img class="popup__close-icon" src="<%=require('./images/close_Icon.svg')%>"alt="закрыть"></button>
             <img id="bigPicturePlace" class="popup__picture-place" src="" alt="">
             <p id="bigPictureName" class="popup__name-place"></p>
         </div>
@@ -49,24 +49,24 @@
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" alt="Джак" src="./images/jak.png">
+            <img class="profile__avatar" alt="Джак" src="<%=require('./images/jak.png')%>">
             <div class="profile__container-name">
                 <div class="profile__container-name-edit">
                     <h1 id="profileName" class="profile__name">Жак-Ив Кусто</h1>
-                    <button type="button" class="profile__edit-button"><img class="profile__edit-icon" src="./images/Edit__icon.svg" alt="Изменить"></button></div>
+                    <button type="button" class="profile__edit-button"><img class="profile__edit-icon" src="<%=require('./images/Edit__icon.svg')%>" alt="Изменить"></button></div>
                 <p id="profileDescription" class="profile__description">Исследователь океана</p>
             </div>
-            <button type="button" class="profile__button-add"><img class="profile__button-icon" src="./images/plus.svg" alt="плюс"></button>
+            <button type="button" class="profile__button-add"><img class="profile__button-icon" src="<%=require('./images/plus.svg')%>" alt="плюс"></button>
         </section>
         <section class="places">
             <ul class="places__list">
                 <template id="newplaces">
                 <li class="place">
                     <img class="place__picture" src="" alt="">
-                    <button type="button" class="place__remove"><img class="place__remove-picture" src="./images/basket.png" alt="удалить"></button>
+                    <button type="button" class="place__remove"><img class="place__remove-picture" src="<%=require('./images/basket.png')%>" alt="удалить"></button>
                     <div class="place__container-text">
                         <h2 class="place__name"></h2>
-                        <button type="button" class="place__button-heart"><img class="place__icon-heart" src="./images/Icon-heart.svg" alt="Сердце"></button>
+                        <button type="button" class="place__button-heart"><img class="place__icon-heart" src="<%=require('./images/Icon-heart.svg')%>" alt="Сердце"></button>
                     </div>
                 </li></template>
             </ul>
