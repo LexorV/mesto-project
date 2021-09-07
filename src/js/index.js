@@ -19,13 +19,13 @@ const whoIsTheGoat = [
     { name: 'basket', link: basket },
     { name: 'iconHeart', link: iconHeart },
 ];
+enableValidation({
 
-const profileButtonAdd = document.querySelector('.profile__button-add');
+})
+
 const profileButtonEdit = document.querySelector('.profile__edit-button');
-const popupButtonSave = document.querySelector('#profileButtonSave');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
 const popupButtonAdd = document.querySelector('.profile__button-add');
-const placeButtonSave = document.querySelector('#placeButtonSave');
 const closeBigPicture = document.querySelector('#closeBigPicture');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
@@ -162,7 +162,6 @@ function activeValidForm(form) {
         number = number + 1;
     })
 }
-
 
 function cleanerForm(form) {
     const formList = Array.from(form.querySelectorAll('.popup__field'));
