@@ -11,6 +11,14 @@ import { activeValidForm } from '../components/validate.js';
 import { initialCards, addPlace, } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
 import { initinalProfile, saveNamePersonal } from '../components/utils.js';
+const classFormObj = {
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__button-save',
+    inactiveButtonClass: 'popup__button-save_active',
+    inputErrorClass: 'popup__formError_active',
+    errorMassage: '.popup__formError',
+    errorClass: 'popup__field_error'
+}
 
 const whoIsTheGoat = [
     // меняем исходные пути на переменные
@@ -39,8 +47,8 @@ const placesList = document.querySelector('.places__list');
 closePopupAll();
 initinalProfile();
 //new
-activeValidForm(editPlaceForm);
-activeValidForm(editProfileForm);
+activeValidForm(editPlaceForm, classFormObj);
+activeValidForm(editProfileForm, classFormObj);
 
 
 /** Event handler **/
@@ -87,3 +95,13 @@ closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
     //ClosePopap(popupBigPlace);
 });
+
+function cleanerForm(form) {
+    const formList = Array.from(form.querySelectorAll('.popup__field'));
+    const buttonSave = form.querySelector('.popup__button-save');
+    formList.forEach((el) => {
+        el.value = '';
+    })
+    buttonSave.setAttribute('disabled', '');
+    buttonSave.classList.remove('popup__button-save_active');
+}

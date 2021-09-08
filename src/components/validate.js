@@ -1,34 +1,34 @@
-export function activeValidForm(form) {
-    const formList = Array.from(form.querySelectorAll('.popup__field'));
-    const errorMassageList = Array.from(form.querySelectorAll('.popup__formError'));
-    const buttonSave = form.querySelector('.popup__button-save');
+export function activeValidForm(form, object) {
+    const formList = Array.from(form.querySelectorAll(object.inputSelector));
+    const errorMassageList = Array.from(form.querySelectorAll(object.errorMassage));
+    const buttonSave = form.querySelector(object.submitButtonSelector);
     let number = 0;
     formList.forEach((el) => {
         let errorMassage = errorMassageList[number];
         el.addEventListener('input', function() {
-            checkValidInput(el, errorMassage);
-            toggleButtonState(formList, buttonSave);
+            checkValidInput(el, errorMassage, object);
+            toggleButtonState(formList, buttonSave, object);
         });
         number = number + 1;
     })
 }
 
 
-function toggleButtonState(inputList, button) {
+function toggleButtonState(inputList, button, object) {
     if (hasInvalidInput(inputList)) {
-        button.classList.remove('popup__button-save_active');
+        button.classList.remove(object.inactiveButtonClass);
         button.setAttribute('disabled', '');
     } else {
-        button.classList.add('popup__button-save_active');
+        button.classList.add(object.inactiveButtonClass);
         button.removeAttribute('disabled', '');
     }
 }
 
-function checkValidInput(inputElement, errorMassageEl) {
+function checkValidInput(inputElement, errorMassageEl, object) {
     if (!inputElement.validity.valid) {
-        showInputError(inputElement, errorMassageEl);
+        showInputError(inputElement, errorMassageEl, object);
     } else {
-        hideInputError(inputElement, errorMassageEl);
+        hideInputError(inputElement, errorMassageEl, object);
     }
 }
 
@@ -38,14 +38,14 @@ function hasInvalidInput(inputList) {
     })
 }
 
-function showInputError(inputElement, errorMassageEl) {
-    errorMassageEl.classList.add('popup__formError_active');
+function showInputError(inputElement, errorMassageEl, object) {
+    errorMassageEl.classList.add(object.inputErrorClass);
     errorMassageEl.textContent = inputElement.validationMessage;
-    inputElement.classList.add('popup__field_error');
+    inputElement.classList.add(object.errorClass);
 }
 
-function hideInputError(inputElement, errorMassageEl) {
-    errorMassageEl.classList.remove('popup__formError_active');
-    inputElement.classList.remove('popup__field_error');
+function hideInputError(inputElement, errorMassageEl, object) {
+    errorMassageEl.classList.remove(object.inputErrorClass);
+    inputElement.classList.remove(object.errorClass);
     errorMassageEl.textContent = '';
 }
