@@ -7,7 +7,10 @@ import Edit__icon from '../images/Edit__icon.svg';
 import plus from '../images/plus.svg';
 import basket from '../images/basket.png';
 import iconHeart from '../images/Icon-heart.svg';
-import { activeValidForm } from '../components/validate.js'
+import { activeValidForm } from '../components/validate.js';
+import { initialCards, addPlace, } from '../components/card.js';
+import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
+import { initinalProfile, saveNamePersonal } from '../components/utils.js';
 
 const whoIsTheGoat = [
     // меняем исходные пути на переменные
@@ -30,91 +33,12 @@ const popupBigPlace = document.querySelector('#popupBigPlace');
 const editPlaceForm = document.querySelector('#editPlaceForm');
 const editProfileForm = document.querySelector('#editProfileForm');
 /**input**/
-const newNameProfile = document.querySelector('#newNameProfile');
-const newBusyProfile = document.querySelector('#newBusyProfile');
+
 /**text **/
 const placesList = document.querySelector('.places__list');
-const profileName = document.querySelector('#profileName');
-const profileDescription = document.querySelector('#profileDescription');
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
-function chengeBigPlace(data, elementPicture, elementText) {
-    elementPicture.setAttribute('src', data.link);
-    elementPicture.setAttribute('alt', data.name);
-    elementText.textContent = data.name;
-}
-
-function openPopup(form) {
-    form.classList.add('popup_opened');
-};
-
-function closePopup(form) {
-    form.classList.remove('popup_opened');
-}
-
-function closePopupAll() {
-    const popapAll = Array.from(document.querySelectorAll('.popup'));
-    popapAll.forEach((el) => {
-        document.addEventListener('keydown', function(evt) {
-            if (evt.key == 'Escape') {
-                closePopup(el);
-            }
-        })
-        el.addEventListener('click', (e) => {
-            if (e.target == e.currentTarget) {
-                closePopup(el);
-            }
-        });
-    })
-}
 closePopupAll();
-
-
-function initinalProfile() {
-    newNameProfile.value = profileName.textContent;
-    newBusyProfile.value = profileDescription.textContent;
-}
 initinalProfile();
-
-function saveNamePersonal() {
-    profileName.textContent = newNameProfile.value;
-    profileDescription.textContent = newBusyProfile.value;
-    closePopup(popupEditProfile);
-};
 //new
-function cleanerForm(form) {
-    const formList = Array.from(form.querySelectorAll('.popup__field'));
-    const buttonSave = form.querySelector('.popup__button-save');
-    formList.forEach((el) => {
-        el.value = '';
-    })
-    buttonSave.setAttribute('disabled', '');
-    buttonSave.classList.remove('popup__button-save_active');
-}
 activeValidForm(editPlaceForm);
 activeValidForm(editProfileForm);
 
@@ -135,7 +59,7 @@ buttonClosePlace.addEventListener('click', function() {
 
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    saveNamePersonal();
+    saveNamePersonal(popupEditProfile);
     cleanerForm(editProfileForm);
 });
 
@@ -153,33 +77,7 @@ editPlaceForm.addEventListener('submit', function(event) {
     closePopup(popupNewPlace);
 });
 
-function reaturePlaces(data) {
-    const placesMain = document.querySelector('#newplaces').content;
-    const newPlace = placesMain.querySelector('.place').cloneNode(true);
-    const placePicture = newPlace.querySelector('.place__picture');
-    const removeButton = newPlace.querySelector('.place__remove');
-    const placeName = newPlace.querySelector('.place__name');
-    const buttonHeart = newPlace.querySelector('.place__button-heart');
-    placePicture.setAttribute('src', data.link);
-    placePicture.setAttribute('alt', data.name);
-    placeName.textContent = data.name;
-    removeButton.addEventListener('click', function() {
-        newPlace.remove();
-    });
-    buttonHeart.addEventListener('click', function() {
-        buttonHeart.classList.toggle('place__button-heart_active');
-    });
-    placePicture.addEventListener('click', function() {
-        chengeBigPlace(data, document.querySelector('#bigPicturePlace'), document.querySelector('#bigPictureName'));
-        openPopup(popupBigPlace);
-    });
-    return newPlace;
-};
 
-function addPlace(data, container) {
-    const place = reaturePlaces(data);
-    container.prepend(place);
-};
 initialCards.forEach(element => {
     element = addPlace(element, placesList);
     return element
