@@ -11,7 +11,7 @@ import { activeValidForm } from '../components/validate.js';
 import { initialCards } from '../components/untils/constans.js';
 import { addPlace, } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal } from '../components/untils/utils.js';
+import { initinalProfile, saveNamePersonal, defaultEditName } from '../components/untils/utils.js';
 const classFormObj = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button-save',
@@ -70,6 +70,7 @@ editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     saveNamePersonal(popupEditProfile);
     cleanerForm(editProfileForm);
+    defaultEditName();
 });
 
 

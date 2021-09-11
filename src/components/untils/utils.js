@@ -4,6 +4,11 @@ const newBusyProfile = document.querySelector('#newBusyProfile');
 const profileName = document.querySelector('#profileName');
 const profileDescription = document.querySelector('#profileDescription');
 
+export function defaultEditName() {
+    newNameProfile.value = 'Жак-Ив Кусто';
+    newBusyProfile.value = 'Исследователь океана';
+}
+
 export function initinalProfile() {
     newNameProfile.value = profileName.textContent;
     newBusyProfile.value = profileDescription.textContent;
