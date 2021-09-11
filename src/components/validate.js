@@ -4,7 +4,7 @@ export function activeValidForm(form, object) {
     const buttonSave = form.querySelector(object.submitButtonSelector);
     let number = 0;
     formList.forEach((el) => {
-        let errorMassage = errorMassageList[number];
+        const errorMassage = errorMassageList[number];
         el.addEventListener('input', function() {
             checkValidInput(el, errorMassage, object);
             toggleButtonState(formList, buttonSave, object);
