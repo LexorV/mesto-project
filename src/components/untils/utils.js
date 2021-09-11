@@ -1,4 +1,4 @@
-import { closePopup } from './modal.js';
+import { closePopup } from '../modal.js';
 const newNameProfile = document.querySelector('#newNameProfile');
 const newBusyProfile = document.querySelector('#newBusyProfile');
 const profileName = document.querySelector('#profileName');

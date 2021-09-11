@@ -8,9 +8,10 @@ import plus from '../images/plus.svg';
 import basket from '../images/basket.png';
 import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
-import { initialCards, addPlace, } from '../components/card.js';
+import { initialCards } from '../components/untils/constans.js';
+import { addPlace, } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal } from '../components/utils.js';
+import { initinalProfile, saveNamePersonal } from '../components/untils/utils.js';
 const classFormObj = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button-save',
