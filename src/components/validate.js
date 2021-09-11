@@ -1,15 +1,14 @@
 export function activeValidForm(form, object) {
-    const formList = Array.from(form.querySelectorAll(object.inputSelector));
-    const errorMassageList = Array.from(form.querySelectorAll(object.errorMassage));
+    const contInputList = Array.from(form.querySelectorAll(object.inputBox));
     const buttonSave = form.querySelector(object.submitButtonSelector);
-    let number = 0;
-    formList.forEach((el) => {
-        const errorMassage = errorMassageList[number];
+    const formList = Array.from(form.querySelectorAll(object.inputSelector));
+    contInputList.forEach((el) => {
+        const inputForm = el.querySelector(object.inputSelector);
+        const errorMassage = el.querySelector(object.errorMassage);
         el.addEventListener('input', function() {
-            checkValidInput(el, errorMassage, object);
+            checkValidInput(inputForm, errorMassage, object);
             toggleButtonState(formList, buttonSave, object);
         });
-        number = number + 1;
     })
 }
 

@@ -18,7 +18,8 @@ const classFormObj = {
     inactiveButtonClass: 'popup__button-save_active',
     inputErrorClass: 'popup__formError_active',
     errorMassage: '.popup__formError',
-    errorClass: 'popup__field_error'
+    errorClass: 'popup__field_error',
+    inputBox: '.popup__input-container'
 }
 
 const whoIsTheGoat = [
