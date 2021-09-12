@@ -4,9 +4,9 @@ const newBusyProfile = document.querySelector('#newBusyProfile');
 const profileName = document.querySelector('#profileName');
 const profileDescription = document.querySelector('#profileDescription');
 
-export function initinalProfile() {
-    newNameProfile.value = profileName.textContent;
-    newBusyProfile.value = profileDescription.textContent;
+export function initinalProfile(name, about, avatar) {
+    profileName.textContent = name
+    profileDescription.textContent = about;
 }
 
 export function saveNamePersonal(popap) {

@@ -19,7 +19,15 @@ const classFormObj = {
     errorMassage: '.popup__formError',
     errorClass: 'popup__field_error'
 }
-
+fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+        headers: {
+            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+        }
+    })
+    .then(res => res.json())
+    .then((result) => {
+        initinalProfile(result.name, result.about);
+    });
 const whoIsTheGoat = [
     // меняем исходные пути на переменные
     { name: 'Logo', link: Logo },
@@ -45,7 +53,7 @@ const editProfileForm = document.querySelector('#editProfileForm');
 /**text **/
 const placesList = document.querySelector('.places__list');
 closePopupAll();
-initinalProfile();
+//initinalProfile();
 //new
 activeValidForm(editPlaceForm, classFormObj);
 activeValidForm(editProfileForm, classFormObj);
@@ -64,6 +72,7 @@ popupButtonAdd.addEventListener('click', function() {
 buttonClosePlace.addEventListener('click', function() {
     closePopup(popupNewPlace);
 });
+
 
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -84,8 +93,6 @@ editPlaceForm.addEventListener('submit', function(event) {
     cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
 });
-
-
 initialCards.forEach(element => {
     element = addPlace(element, placesList);
     return element
