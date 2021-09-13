@@ -8,7 +8,7 @@ import plus from '../images/plus.svg';
 import basket from '../images/basket.png';
 import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
-import { initialCards, addPlace, } from '../components/card.js';
+import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
 import { initinalProfile, saveNamePersonal } from '../components/utils.js';
 const classFormObj = {
@@ -19,15 +19,6 @@ const classFormObj = {
     errorMassage: '.popup__formError',
     errorClass: 'popup__field_error'
 }
-fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
-        headers: {
-            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
-        }
-    })
-    .then(res => res.json())
-    .then((result) => {
-        initinalProfile(result.name, result.about);
-    });
 const whoIsTheGoat = [
     // меняем исходные пути на переменные
     { name: 'Logo', link: Logo },
@@ -51,8 +42,9 @@ const editProfileForm = document.querySelector('#editProfileForm');
 /**input**/
 
 /**text **/
-const placesList = document.querySelector('.places__list');
+
 closePopupAll();
+
 //initinalProfile();
 //new
 activeValidForm(editPlaceForm, classFormObj);
@@ -93,10 +85,37 @@ editPlaceForm.addEventListener('submit', function(event) {
     cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
 });
-initialCards.forEach(element => {
-    element = addPlace(element, placesList);
-    return element
+//new
+fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+        headers: {
+            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+        }
+    })
+    .then(res => res.json())
+    .then((result) => {
+        initinalProfile(result.name, result.about);
+    });
+fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
+        headers: {
+            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+        }
+    })
+    .then(res => res.json())
+    .then((res) => {
+        startCards(res);
+    });
+fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+    method: 'PATCH',
+    headers: {
+        authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: 'Marie Skłodowska Curie',
+        about: 'Physicist and Chemist'
+    })
 });
+
 
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);

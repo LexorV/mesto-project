@@ -1,5 +1,6 @@
 import { openPopup } from './modal.js';
-export const initialCards = [{
+export const placesList = document.querySelector('.places__list');
+/*export const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
@@ -23,7 +24,14 @@ export const initialCards = [{
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-];
+];*/
+
+export function startCards(arrayCard) {
+    arrayCard.forEach(element => {
+        element = addPlace(element, placesList);
+        return element
+    });
+}
 
 function reaturePlaces(data) {
     const placesMain = document.querySelector('#newplaces').content;
