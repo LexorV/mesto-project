@@ -71,8 +71,6 @@ editProfileForm.addEventListener('submit', function(event) {
     saveNamePersonal(popupEditProfile);
     cleanerForm(editProfileForm);
 });
-
-
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newNamePlace = document.querySelector('#newNamePlace').value;
@@ -104,19 +102,6 @@ fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
     .then((res) => {
         startCards(res);
     });
-fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
-    method: 'PATCH',
-    headers: {
-        authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        name: 'Marie Skłodowska Curie',
-        about: 'Physicist and Chemist'
-    })
-});
-
-
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
     //ClosePopap(popupBigPlace);

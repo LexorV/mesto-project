@@ -12,5 +12,20 @@ export function initinalProfile(name, about, avatar) {
 export function saveNamePersonal(popap) {
     profileName.textContent = newNameProfile.value;
     profileDescription.textContent = newBusyProfile.value;
+    sendProfile(profileName.textContent, profileDescription.textContent)
     closePopup(popap);
 };
+
+function sendProfile(text, about, avatar) {
+    fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+        method: 'PATCH',
+        headers: {
+            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: text,
+            about: about,
+        })
+    });
+}
