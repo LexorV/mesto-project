@@ -79,6 +79,8 @@ editPlaceForm.addEventListener('submit', function(event) {
         name: newNamePlace,
         link: newPicturePlace
     };
+    console.log(newNamePlace);
+    sendCard(newCardsArray.name, newCardsArray.link);
     addPlace(newCardsArray, placesList);
     cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
@@ -102,6 +104,22 @@ fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
     .then((res) => {
         startCards(res);
     });
+
+function sendCard(nameCard, url) {
+    return fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
+        method: 'POST',
+        headers: {
+            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: nameCard,
+            link: url
+        })
+    })
+};
+
+
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
     //ClosePopap(popupBigPlace);
