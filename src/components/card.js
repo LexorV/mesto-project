@@ -40,9 +40,11 @@ function reaturePlaces(data) {
     const removeButton = newPlace.querySelector('.place__remove');
     const placeName = newPlace.querySelector('.place__name');
     const buttonHeart = newPlace.querySelector('.place__button-heart');
+    const amountCard = newPlace.querySelector('.place__counter-heart');
     placePicture.setAttribute('src', data.link);
     placePicture.setAttribute('alt', data.name);
     placeName.textContent = data.name;
+    amountCard.textContent = data.likes.length;
     removeButton.addEventListener('click', function() {
         newPlace.remove();
     });

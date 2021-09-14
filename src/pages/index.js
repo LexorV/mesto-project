@@ -121,7 +121,6 @@ function sendCard(nameCard, url) {
         })
 };
 
-
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
     //ClosePopap(popupBigPlace);

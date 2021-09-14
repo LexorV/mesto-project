@@ -37,6 +37,8 @@
 @import url('../blocks/place/__button-heart/_active/place__button-heart_active.css');
 @import url('../blocks/place/__remove/place__remove.css');
 @import url('../blocks/place/__remove-picture/place__remove-picture.css');
+@import url('../blocks/place/__container-heart/place__container-heart.css');
+@import url('../blocks/place/__counter-heart/place__counter-heart.css');
 
 /*popup*/
 
@@ -58,6 +60,7 @@
 @import url('../blocks/popup/__formError/popup__formError.css');
 @import url('../blocks/popup/__formError/_active/popup__formError_active.css');
 @import url('../blocks/popup/__button-save/__button-save_active/popup__button-save_active.css');
+
 /*footer*/
 
 @import url('..//blocks/footer/footer.css');
