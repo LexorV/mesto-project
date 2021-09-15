@@ -11,6 +11,7 @@ import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
 import { initinalProfile, saveNamePersonal } from '../components/utils.js';
+import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button-save',
@@ -80,8 +81,10 @@ editPlaceForm.addEventListener('submit', function(event) {
         name: newNamePlace,
         link: newPicturePlace
     };
-    sendCard(newCardsArray.name, newCardsArray.link);
-    getStartCards(addPlace);
+    sendCard(newCardsArray.name, newCardsArray.link)
+        .then((data) => {
+            addPlace(data, placesList);
+        });
     cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
 });
@@ -101,7 +104,7 @@ fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
         initinalProfile(result.name, result.about);
     });
 
-function getStartCards(cardFunction) {
+function getStartCards() {
     fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
             headers: {
                 authorization: token,
@@ -109,11 +112,10 @@ function getStartCards(cardFunction) {
         })
         .then(res => res.json())
         .then((res) => {
-            console.log(res);
-            cardFunction(res, placesList);
+            startCards(res);
         });
 }
-getStartCards(startCards)
+getStartCards();
 
 
 function sendCard(nameCard, url) {

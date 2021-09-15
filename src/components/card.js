@@ -35,7 +35,6 @@ export function startCards(arrayCard) {
 
 
 function reaturePlaces(data) {
-    console.log(data._id);
     const placesMain = document.querySelector('#newplaces').content;
     const newPlace = placesMain.querySelector('.place').cloneNode(true);
     const placePicture = newPlace.querySelector('.place__picture');
