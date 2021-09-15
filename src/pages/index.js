@@ -71,6 +71,7 @@ editProfileForm.addEventListener('submit', function(event) {
     saveNamePersonal(popupEditProfile);
     cleanerForm(editProfileForm);
 });
+
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newNamePlace = document.querySelector('#newNamePlace').value;
@@ -80,35 +81,46 @@ editPlaceForm.addEventListener('submit', function(event) {
         link: newPicturePlace
     };
     sendCard(newCardsArray.name, newCardsArray.link);
-    addPlace(newCardsArray, placesList);
+    getStartCards(addPlace);
     cleanerForm(editPlaceForm);
     closePopup(popupNewPlace);
 });
 //new
+const token = '1898bf9a-848d-4e76-8628-36735272cef2';
+const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
+
+
+
 fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
         headers: {
-            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+            authorization: token,
         }
     })
     .then(res => res.json())
     .then((result) => {
         initinalProfile(result.name, result.about);
     });
-fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
-        headers: {
-            authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
-        }
-    })
-    .then(res => res.json())
-    .then((res) => {
-        startCards(res);
-    });
+
+function getStartCards(cardFunction) {
+    fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
+            headers: {
+                authorization: token,
+            }
+        })
+        .then(res => res.json())
+        .then((res) => {
+            console.log(res);
+            cardFunction(res, placesList);
+        });
+}
+getStartCards(startCards)
+
 
 function sendCard(nameCard, url) {
     return fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
             method: 'POST',
             headers: {
-                authorization: "1898bf9a-848d-4e76-8628-36735272cef2",
+                authorization: token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -123,7 +135,6 @@ function sendCard(nameCard, url) {
 
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
-    //ClosePopap(popupBigPlace);
 });
 
 function cleanerForm(form) {
