@@ -35,6 +35,7 @@ export function startCards(arrayCard) {
 
 
 function reaturePlaces(data) {
+    console.log(data);
     const placesMain = document.querySelector('#newplaces').content;
     const newPlace = placesMain.querySelector('.place').cloneNode(true);
     const placePicture = newPlace.querySelector('.place__picture');
@@ -55,7 +56,13 @@ function reaturePlaces(data) {
         removeButton.style.display = 'none';
     }
     buttonHeart.addEventListener('click', function() {
-        buttonHeart.classList.toggle('place__button-heart_active');
+        if (!buttonHeart.classList.contains('place__button-heart_active')) {
+            buttonHeart.classList.add('place__button-heart_active');
+            likesAdd(data);
+        } else {
+            buttonHeart.classList.remove('place__button-heart_active');
+            likesRemove(data);
+        }
     });
     placePicture.addEventListener('click', function() {
         chengeBigPlace(data, document.querySelector('#bigPicturePlace'), document.querySelector('#bigPictureName'));
@@ -84,9 +91,18 @@ function deleteCard(card) {
     })
 }
 
-function likesAdd() {
+function likesAdd(card) {
     return fetch(`https://nomoreparties.co/v1/plus-cohort-1/cards/likes/${card._id}`, {
         method: 'PUT',
+        headers: {
+            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+        }
+    })
+};
+
+function likesRemove(card) {
+    return fetch(`https://nomoreparties.co/v1/plus-cohort-1/cards/likes/${card._id}`, {
+        method: 'DELETE',
         headers: {
             authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
         }
