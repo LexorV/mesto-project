@@ -79,6 +79,9 @@ function chengeBigPlace(data, elementPicture, elementText) {
 
 export function addPlace(data, container) {
     const place = reaturePlaces(data);
+    //console.log(data);
+    //console.log(data.likes)
+    checkLike(data, data.likes)
     container.prepend(place);
 };
 
@@ -107,4 +110,18 @@ function likesRemove(card) {
             authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
         }
     })
+}
+
+function checkLike(data, likesArray) {
+
+    const result = likesArray.some((resident) => {
+        return resident._id == '77e5e7e45a941a78fcd646d3'
+    })
+    console.log(result);
+
+    return result
+
+
+
+
 }
