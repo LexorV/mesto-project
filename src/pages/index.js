@@ -73,6 +73,10 @@ editProfileForm.addEventListener('submit', function(event) {
     cleanerForm(editProfileForm);
 });
 
+function addPlaceForm() {
+
+}
+
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newNamePlace = document.querySelector('#newNamePlace').value;
@@ -92,30 +96,42 @@ editPlaceForm.addEventListener('submit', function(event) {
 const token = '1898bf9a-848d-4e76-8628-36735272cef2';
 const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
 
+function getNameData() {
+    return fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+            headers: {
+                authorization: token,
+            }
+        })
+        .then(res => res.json())
+}
+
+function getCards() {
+    return fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
+            headers: {
+                authorization: token,
+            }
+        })
+        .then(res => res.json())
+
+}
 
 
-fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
-        headers: {
-            authorization: token,
-        }
-    })
-    .then(res => res.json())
-    .then((result) => {
-        initinalProfile(result.name, result.about);
-    });
+Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
+    initinalProfile(data.name, data.about);
+    startCards(cards, data);
 
-function getStartCards() {
+})
+
+
+/*
+function getCard() {
     fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
             headers: {
                 authorization: token,
             }
         })
         .then(res => res.json())
-        .then((res) => {
-            startCards(res);
-        });
-}
-getStartCards();
+}*/
 
 
 function sendCard(nameCard, url) {
