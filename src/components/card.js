@@ -28,6 +28,7 @@ export const placesList = document.querySelector('.places__list');
 
 export function startCards(arrayCard) {
     arrayCard.forEach(element => {
+        checkLike(element.likes);
         element = addPlace(element, placesList);
         return element
     });
@@ -35,7 +36,6 @@ export function startCards(arrayCard) {
 
 
 function reaturePlaces(data) {
-    console.log(data);
     const placesMain = document.querySelector('#newplaces').content;
     const newPlace = placesMain.querySelector('.place').cloneNode(true);
     const placePicture = newPlace.querySelector('.place__picture');
@@ -55,13 +55,16 @@ function reaturePlaces(data) {
     if (data.owner._id != '77e5e7e45a941a78fcd646d3') {
         removeButton.style.display = 'none';
     }
+
     buttonHeart.addEventListener('click', function() {
         if (!buttonHeart.classList.contains('place__button-heart_active')) {
             buttonHeart.classList.add('place__button-heart_active');
             likesAdd(data);
+            amountCard.textContent = Number(amountCard.textContent) + 1;
         } else {
             buttonHeart.classList.remove('place__button-heart_active');
             likesRemove(data);
+            amountCard.textContent = Number(amountCard.textContent) - 1;
         }
     });
     placePicture.addEventListener('click', function() {
@@ -78,10 +81,12 @@ function chengeBigPlace(data, elementPicture, elementText) {
 }
 
 export function addPlace(data, container) {
+    // console.log(data);
     const place = reaturePlaces(data);
-    //console.log(data);
-    //console.log(data.likes)
-    checkLike(data, data.likes)
+    //console.log(place.querySelector('.place__button-heart'));
+    renderLikes(place, data.likes)
+        //console.log(data.likes)
+        //checkLike(data, data.likes)
     container.prepend(place);
 };
 
@@ -112,16 +117,16 @@ function likesRemove(card) {
     })
 }
 
-function checkLike(data, likesArray) {
+function checkLike(likesArray) {
 
     const result = likesArray.some((resident) => {
         return resident._id == '77e5e7e45a941a78fcd646d3'
     })
-    console.log(result);
-
     return result
+}
 
-
-
-
+function renderLikes(DOMelement, likesArray) {
+    if (checkLike(likesArray)) {
+        DOMelement.querySelector('.place__button-heart').classList.add('place__button-heart_active');
+    }
 }
