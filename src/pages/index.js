@@ -10,7 +10,7 @@ import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal } from '../components/utils.js';
+import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -34,12 +34,15 @@ const profileButtonEdit = document.querySelector('.profile__edit-button');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
 const popupButtonAdd = document.querySelector('.profile__button-add');
 const closeBigPicture = document.querySelector('#closeBigPicture');
+const buttonCloseAvatar = document.querySelector('#buttonCloseAvatar');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const popupBigPlace = document.querySelector('#popupBigPlace');
 const editPlaceForm = document.querySelector('#editPlaceForm');
 const editProfileForm = document.querySelector('#editProfileForm');
+const editAvatarButton = document.querySelector('.profile__avatar-button');
+const editAvatarForm = document.querySelector('#popupAvatarCheked');
 /**input**/
 
 /**text **/
@@ -50,6 +53,7 @@ closePopupAll();
 //new
 activeValidForm(editPlaceForm, classFormObj);
 activeValidForm(editProfileForm, classFormObj);
+activeValidForm(editAvatarForm, classFormObj);
 
 
 /** Event handler **/
@@ -65,6 +69,12 @@ popupButtonAdd.addEventListener('click', function() {
 buttonClosePlace.addEventListener('click', function() {
     closePopup(popupNewPlace);
 });
+editAvatarButton.addEventListener('click', function() {
+    openPopup(editAvatarForm);
+})
+buttonCloseAvatar.addEventListener('click', function() {
+    closePopup(editAvatarForm);
+});
 
 
 editProfileForm.addEventListener('submit', function(event) {
@@ -72,6 +82,12 @@ editProfileForm.addEventListener('submit', function(event) {
     saveNamePersonal(popupEditProfile);
     cleanerForm(editProfileForm);
 });
+editAvatarForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    saveAvatarPersonal(editAvatarForm);
+    cleanerForm(editAvatarForm);
+})
+
 
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -125,7 +141,7 @@ function getCards() {
 
 
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
-    initinalProfile(data.name, data.about);
+    initinalProfile(data.name, data.about, data.avatar);
     startCards(cards);
 
 })
