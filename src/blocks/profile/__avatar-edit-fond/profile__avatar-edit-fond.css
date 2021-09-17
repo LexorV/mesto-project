@@ -1,0 +1,13 @@
+.profile__avatar-edit-fond {
+    background-color: rgba(0, 0, 0, 0.8);
+    min-height: 120px;
+    min-width: 120px;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    z-index: 4;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
