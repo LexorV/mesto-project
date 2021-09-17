@@ -80,13 +80,27 @@ buttonCloseAvatar.addEventListener('click', function() {
 
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    saveNamePersonal(popupEditProfile);
-    cleanerForm(editProfileForm);
+    const profileButtonSave = document.querySelector('#profileButtonSave');
+    callWaiting(profileButtonSave, 'Сохранение...')
+    saveNamePersonal().then(() => {
+            cleanerForm(editProfileForm);
+            closePopup(popupEditProfile);
+        })
+        .finally(() => {
+            callWaiting(profileButtonSave, 'Сохранение');
+        })
 });
 editAvatarForm.addEventListener('submit', function(event) {
+    const saveAvatarButton = document.querySelector('#saveAvatarButton');
     event.preventDefault();
-    saveAvatarPersonal(editAvatarForm);
-    cleanerForm(editAvatarForm);
+    callWaiting(saveAvatarButton, 'Сохранение...')
+    saveAvatarPersonal().then(() => {
+            cleanerForm(editAvatarForm);
+            closePopup(editAvatarForm);
+        })
+        .finally(() => {
+            callWaiting(saveAvatarButton, 'Сохранение');
+        })
 })
 
 function callWaiting(classButton, textEdit) {
