@@ -169,7 +169,6 @@ function getCards() {
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
     initinalProfile(data.name, data.about, data.avatar);
     startCards(cards, data);
-
 })
 
 
@@ -196,9 +195,7 @@ function sendCard(nameCard, url) {
                 link: url
             })
         })
-        .then((res) => {
-            return res.json()
-        })
+        .then(checkData);
 };
 
 closeBigPicture.addEventListener('click', function() {
@@ -213,4 +210,11 @@ function cleanerForm(form) {
     })
     buttonSave.setAttribute('disabled', '');
     buttonSave.classList.remove('popup__button-save_active');
+}
+
+const checkData = (res) => {
+    if (res.ok) {
+        return res.json()
+    }
+    return Promise.reject(`Ошибка - ${res.status}`);
 }
