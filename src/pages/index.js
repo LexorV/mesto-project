@@ -117,9 +117,8 @@ editPlaceForm.addEventListener('submit', function(event) {
         link: newPicturePlace
     };
     callWaiting(placeButtonSavePlace, 'Сохранение...')
-    sendCard(newCardsArray.name, newCardsArray.link)
-        .then((data) => {
-            addPlace(data, placesList);
+    Promise.all([sendCard(newCardsArray.name, newCardsArray.link), getNameData()]).then(([data, user]) => {
+            addPlace(data, placesList, user);
         })
         .then(() => {
             cleanerForm(editPlaceForm);
@@ -169,7 +168,7 @@ function getCards() {
 
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
     initinalProfile(data.name, data.about, data.avatar);
-    startCards(cards);
+    startCards(cards, data);
 
 })
 

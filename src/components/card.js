@@ -26,16 +26,17 @@ export const placesList = document.querySelector('.places__list');
     }
 ];*/
 
-export function startCards(arrayCard) {
+export function startCards(arrayCard, data) {
     arrayCard.forEach(element => {
-        checkLike(element.likes);
-        element = addPlace(element, placesList);
+        checkLike(element.likes, data);
+        element = addPlace(element, placesList, data);
         return element
     });
 }
 
 
-function reaturePlaces(data) {
+function reaturePlaces(data, user) {
+    // console.log(user);
     const placesMain = document.querySelector('#newplaces').content;
     const newPlace = placesMain.querySelector('.place').cloneNode(true);
     const placePicture = newPlace.querySelector('.place__picture');
@@ -52,7 +53,7 @@ function reaturePlaces(data) {
         newPlace.remove();
     });
 
-    if (data.owner._id != '77e5e7e45a941a78fcd646d3') {
+    if (data.owner._id != user._id) {
         removeButton.style.display = 'none';
     }
 
@@ -80,11 +81,10 @@ function chengeBigPlace(data, elementPicture, elementText) {
     elementText.textContent = data.name;
 }
 
-export function addPlace(data, container) {
-    // console.log(data);
-    const place = reaturePlaces(data);
+export function addPlace(data, container, user) {
+    const place = reaturePlaces(data, user);
     //console.log(place.querySelector('.place__button-heart'));
-    renderLikes(place, data.likes)
+    renderLikes(place, data.likes, user)
         //console.log(data.likes)
         //checkLike(data, data.likes)
     container.prepend(place);
@@ -117,16 +117,16 @@ function likesRemove(card) {
     })
 }
 
-function checkLike(likesArray) {
+function checkLike(likesArray, user) {
 
     const result = likesArray.some((resident) => {
-        return resident._id == '77e5e7e45a941a78fcd646d3'
+        return resident._id == user._id
     })
     return result
 }
 
-function renderLikes(DOMelement, likesArray) {
-    if (checkLike(likesArray)) {
+function renderLikes(DOMelement, likesArray, user) {
+    if (checkLike(likesArray, user)) {
         DOMelement.querySelector('.place__button-heart').classList.add('place__button-heart_active');
     }
 }
