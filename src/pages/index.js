@@ -77,6 +77,7 @@ buttonCloseAvatar.addEventListener('click', function() {
 });
 
 
+
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     saveNamePersonal(popupEditProfile);
@@ -88,21 +89,33 @@ editAvatarForm.addEventListener('submit', function(event) {
     cleanerForm(editAvatarForm);
 })
 
+function callWaiting(classButton, textEdit) {
+    classButton.textContent = textEdit
+}
 
 editPlaceForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newNamePlace = document.querySelector('#newNamePlace').value;
     const newPicturePlace = document.querySelector('#newPicturePlace').value;
+    const placeButtonSavePlace = document.querySelector('#placeButtonSave');
     const newCardsArray = {
         name: newNamePlace,
         link: newPicturePlace
     };
+    callWaiting(placeButtonSavePlace, 'Сохранение...')
     sendCard(newCardsArray.name, newCardsArray.link)
         .then((data) => {
             addPlace(data, placesList);
-        });
-    cleanerForm(editPlaceForm);
-    closePopup(popupNewPlace);
+        })
+        .then(() => {
+            cleanerForm(editPlaceForm);
+        })
+        .then(() => {
+            closePopup(popupNewPlace);
+        })
+        .finally(() => {
+            callWaiting(placeButtonSavePlace, 'Сохранение')
+        })
 });
 //new
 const token = '1898bf9a-848d-4e76-8628-36735272cef2';
