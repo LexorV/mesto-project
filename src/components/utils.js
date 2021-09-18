@@ -29,6 +29,9 @@ export function saveNamePersonal() {
         })
         .then((res) => {
             return res.json()
+        })
+        .catch((err) => {
+            console.log(err);
         });
 };
 
@@ -47,19 +50,25 @@ export function saveAvatarPersonal() {
         })
         .then((res) => {
             return res.json()
+        })
+        .catch((err) => {
+            console.log(err);
         });
 
 }
 
 function sendProfileAvatar(avatarUrl) {
     return fetch(`https://nomoreparties.co/v1/plus-cohort-1/users/me/avatar`, {
-        method: 'PATCH',
-        headers: {
-            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            avatar: avatarUrl,
+            method: 'PATCH',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: avatarUrl,
+            })
         })
-    });
+        .catch((err) => {
+            console.log(err);
+        });
 }

@@ -152,6 +152,7 @@ function getNameData() {
                 authorization: token,
             }
         })
+        .then(checkData)
         .then(res => res.json())
 }
 
@@ -161,6 +162,7 @@ function getCards() {
                 authorization: token,
             }
         })
+        .then(checkData)
         .then(res => res.json())
 
 }
@@ -195,7 +197,13 @@ function sendCard(nameCard, url) {
                 link: url
             })
         })
-        .then(checkData);
+        .catch((err) => {
+            console.log(err);
+        })
+        .then((res) => {
+            return res.json()
+        })
+
 };
 
 closeBigPicture.addEventListener('click', function() {
@@ -214,7 +222,7 @@ function cleanerForm(form) {
 
 const checkData = (res) => {
     if (res.ok) {
-        return res.json()
+        return res
     }
-    return Promise.reject(`Ошибка - ${res.status}`);
+    return Promise.reject(`Ошибка: ${res.status}`);
 }

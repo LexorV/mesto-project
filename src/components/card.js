@@ -92,29 +92,38 @@ export function addPlace(data, container, user) {
 
 function deleteCard(card) {
     return fetch(`https://nomoreparties.co/v1/plus-cohort-1/cards/${card._id}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
-        }
-    })
+            method: 'DELETE',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 function likesAdd(card) {
     return fetch(`https://nomoreparties.co/v1/plus-cohort-1/cards/likes/${card._id}`, {
-        method: 'PUT',
-        headers: {
-            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
-        }
-    })
+            method: 'PUT',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 };
 
 function likesRemove(card) {
     return fetch(`https://nomoreparties.co/v1/plus-cohort-1/cards/likes/${card._id}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
-        }
-    })
+            method: 'DELETE',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 function checkLike(likesArray, user) {
