@@ -73,6 +73,64 @@ export function likesRemove(card) {
             console.log(err);
         })
 }
+export function saveNamePersonal() {
+    profileName.textContent = document.querySelector('#newNameProfile').value;
+    profileDescription.textContent = document.querySelector('#newBusyProfile').value;
+    return fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+            method: 'PATCH',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: profileName.textContent,
+                about: profileDescription.textContent,
+            })
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+export function saveAvatarPersonal() {
+    sendProfileAvatar(newAvatarInput.value);
+    document.querySelector('.profile__avatar').setAttribute('src', newAvatarInput.value);
+    return fetch(`https://nomoreparties.co/v1/plus-cohort-1/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: newAvatarInput.value,
+            })
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+}
+
+function sendProfileAvatar(avatarUrl) {
+    return fetch(`https://nomoreparties.co/v1/plus-cohort-1/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: avatarUrl,
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
 
 const checkData = (res) => {
     if (res.ok) {

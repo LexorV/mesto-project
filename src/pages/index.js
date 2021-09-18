@@ -10,8 +10,8 @@ import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
-import { sendCard, getCards, getNameData } from '../components/api.js';
+import { initinalProfile } from '../components/utils.js';
+import { sendCard, getCards, getNameData, saveNamePersonal, saveAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
