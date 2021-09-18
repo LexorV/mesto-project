@@ -11,6 +11,7 @@ import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
 import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
+import { sendCard, getCards, getNameData } from '../components/api.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -131,8 +132,7 @@ editPlaceForm.addEventListener('submit', function(event) {
         })
 });
 //new
-const token = '1898bf9a-848d-4e76-8628-36735272cef2';
-const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
+
 
 
 /*
@@ -146,26 +146,7 @@ fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
         initinalProfile(result.name, result.about);
     });
 */
-function getNameData() {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
-            headers: {
-                authorization: token,
-            }
-        })
-        .then(checkData)
-        .then(res => res.json())
-}
 
-function getCards() {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
-            headers: {
-                authorization: token,
-            }
-        })
-        .then(checkData)
-        .then(res => res.json())
-
-}
 
 
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
@@ -185,26 +166,7 @@ function getCard() {
 }*/
 
 
-function sendCard(nameCard, url) {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
-            method: 'POST',
-            headers: {
-                authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: nameCard,
-                link: url
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .then((res) => {
-            return res.json()
-        })
 
-};
 
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
@@ -218,11 +180,4 @@ function cleanerForm(form) {
     })
     buttonSave.setAttribute('disabled', '');
     buttonSave.classList.remove('popup__button-save_active');
-}
-
-const checkData = (res) => {
-    if (res.ok) {
-        return res
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
 }
