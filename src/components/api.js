@@ -76,10 +76,10 @@ export function likesRemove(card) {
 export function saveNamePersonal() {
     profileName.textContent = document.querySelector('#newNameProfile').value;
     profileDescription.textContent = document.querySelector('#newBusyProfile').value;
-    return fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
+    return fetch(`${urlServ}users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                authorization: token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -97,10 +97,10 @@ export function saveNamePersonal() {
 export function saveAvatarPersonal() {
     sendProfileAvatar(newAvatarInput.value);
     document.querySelector('.profile__avatar').setAttribute('src', newAvatarInput.value);
-    return fetch(`https://nomoreparties.co/v1/plus-cohort-1/users/me/avatar`, {
+    return fetch(`${urlServ}users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                authorization: token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -117,10 +117,10 @@ export function saveAvatarPersonal() {
 }
 
 function sendProfileAvatar(avatarUrl) {
-    return fetch(`https://nomoreparties.co/v1/plus-cohort-1/users/me/avatar`, {
+    return fetch(`${urlServ}users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: '1898bf9a-848d-4e76-8628-36735272cef2',
+                authorization: token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
