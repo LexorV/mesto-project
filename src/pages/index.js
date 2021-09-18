@@ -131,43 +131,10 @@ editPlaceForm.addEventListener('submit', function(event) {
             callWaiting(placeButtonSavePlace, 'Сохранение')
         })
 });
-//new
-
-
-
-/*
-fetch('https://nomoreparties.co/v1/plus-cohort-1/users/me', {
-        headers: {
-            authorization: token,
-        }
-    })
-    .then(res => res.json())
-    .then((result) => {
-        initinalProfile(result.name, result.about);
-    });
-*/
-
-
-
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
     initinalProfile(data.name, data.about, data.avatar);
     startCards(cards, data);
 })
-
-
-/*
-function getCard() {
-    fetch('https://nomoreparties.co/v1/plus-cohort-1/cards', {
-            headers: {
-                authorization: token,
-            }
-        })
-        .then(res => res.json())
-}*/
-
-
-
-
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
 });
