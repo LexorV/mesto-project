@@ -2,6 +2,7 @@ import { openPopup } from './modal.js';
 import { deleteCard, likesAdd, likesRemove, } from './api.js';
 export const placesList = document.querySelector('.places__list');
 export function startCards(arrayCard, data) {
+    arrayCard.reverse();
     arrayCard.forEach(element => {
         checkLike(element.likes, data);
         element = addPlace(element, placesList, data);
@@ -23,8 +24,13 @@ function reaturePlaces(data, user) {
     placeName.textContent = data.name;
     amountCard.textContent = data.likes.length;
     removeButton.addEventListener('click', function() {
-        deleteCard(data);
-        newPlace.remove();
+        deleteCard(data)
+            .then(() => {
+                newPlace.remove();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     });
 
     if (data.owner._id != user._id) {
@@ -33,13 +39,23 @@ function reaturePlaces(data, user) {
 
     buttonHeart.addEventListener('click', function() {
         if (!buttonHeart.classList.contains('place__button-heart_active')) {
-            buttonHeart.classList.add('place__button-heart_active');
-            likesAdd(data);
-            amountCard.textContent = Number(amountCard.textContent) + 1;
+            likesAdd(data)
+                .then(() => {
+                    buttonHeart.classList.add('place__button-heart_active');
+                    amountCard.textContent = Number(amountCard.textContent) + 1;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         } else {
-            buttonHeart.classList.remove('place__button-heart_active');
-            likesRemove(data);
-            amountCard.textContent = Number(amountCard.textContent) - 1;
+            likesRemove(data)
+                .then(() => {
+                    buttonHeart.classList.remove('place__button-heart_active');
+                    amountCard.textContent = Number(amountCard.textContent) - 1;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
     });
     placePicture.addEventListener('click', function() {

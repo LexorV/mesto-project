@@ -48,9 +48,6 @@ export function deleteCard(card) {
             }
         })
         .then(checkData)
-        .catch((err) => {
-            console.log(err);
-        })
 }
 export function likesAdd(card) {
     return fetch(`${urlServ}cards/likes/${card._id}`, {
@@ -60,9 +57,6 @@ export function likesAdd(card) {
             }
         })
         .then(checkData)
-        .catch((err) => {
-            console.log(err);
-        })
 };
 export function likesRemove(card) {
     return fetch(`${urlServ}cards/likes/${card._id}`, {
@@ -72,9 +66,6 @@ export function likesRemove(card) {
             }
         })
         .then(checkData)
-        .catch((err) => {
-            console.log(err);
-        })
 }
 export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {

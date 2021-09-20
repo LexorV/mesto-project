@@ -129,7 +129,8 @@ editPlaceForm.addEventListener('submit', function(event) {
         link: newPicturePlace
     };
     callWaiting(placeButtonSavePlace, 'Сохранение...')
-    Promise.all([sendCard(newCardsArray.name, newCardsArray.link), getNameData()]).then(([data, user]) => {
+    Promise.all([sendCard(newCardsArray.name, newCardsArray.link), getNameData()])
+        .then(([data, user]) => {
             addPlace(data, placesList, user);
         })
         .then(() => {
