@@ -10,8 +10,8 @@ import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal } from '../components/utils.js';
-import { sendCard, getCards, getNameData, sendNamePersonal, saveAvatarPersonal } from '../components/api.js';
+import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
+import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -95,12 +95,17 @@ editProfileForm.addEventListener('submit', function(event) {
         })
 });
 editAvatarForm.addEventListener('submit', function(event) {
-    const saveAvatarButton = document.querySelector('#saveAvatarButton');
     event.preventDefault();
+    const saveAvatarButton = document.querySelector('#saveAvatarButton');
+    const newAvatarInput = document.querySelector('#newAvatarInput').value;
     callWaiting(saveAvatarButton, 'Сохранение...')
-    saveAvatarPersonal().then(() => {
+    sendAvatarPersonal(newAvatarInput).then(() => {
+            saveAvatarPersonal(newAvatarInput);
             cleanerForm(editAvatarForm);
             closePopup(editAvatarForm);
+        })
+        .catch((err) => {
+            console.log(err);
         })
         .finally(() => {
             callWaiting(saveAvatarButton, 'Сохранение');

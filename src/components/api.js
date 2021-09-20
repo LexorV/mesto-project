@@ -91,29 +91,7 @@ export function sendNamePersonal(profileName, profileDescription) {
             console.log(err);
         });
 };
-export function saveAvatarPersonal() {
-    sendProfileAvatar(newAvatarInput.value);
-    document.querySelector('.profile__avatar').setAttribute('src', newAvatarInput.value);
-    return fetch(`${urlServ}users/me/avatar`, {
-            method: 'PATCH',
-            headers: {
-                authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avatar: newAvatarInput.value,
-            })
-        })
-        .then((res) => {
-            return res.json()
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-}
-
-function sendProfileAvatar(avatarUrl) {
+export function sendAvatarPersonal(avatarUrl) {
     return fetch(`${urlServ}users/me/avatar`, {
             method: 'PATCH',
             headers: {
@@ -124,11 +102,11 @@ function sendProfileAvatar(avatarUrl) {
                 avatar: avatarUrl,
             })
         })
-        .catch((err) => {
-            console.log(err);
-        });
+        .then(checkData)
+        .then((res) => {
+            return res.json()
+        })
 }
-
 const checkData = (res) => {
     if (res.ok) {
         return res

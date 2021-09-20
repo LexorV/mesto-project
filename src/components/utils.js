@@ -11,3 +11,6 @@ export function saveNamePersonal(name, busy) {
     profileName.textContent = name;
     profileDescription.textContent = busy;
 }
+export function saveAvatarPersonal(newAvatarInput) {
+    avatarPicture.setAttribute('src', newAvatarInput);
+}
