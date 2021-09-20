@@ -13,9 +13,7 @@ export function sendCard(nameCard, url) {
                 link: url
             })
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        .then(checkData)
         .then((res) => {
             return res.json()
         })
@@ -73,9 +71,7 @@ export function likesRemove(card) {
             console.log(err);
         })
 }
-export function saveNamePersonal() {
-    profileName.textContent = document.querySelector('#newNameProfile').value;
-    profileDescription.textContent = document.querySelector('#newBusyProfile').value;
+export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {
             method: 'PATCH',
             headers: {
@@ -83,10 +79,11 @@ export function saveNamePersonal() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: profileName.textContent,
-                about: profileDescription.textContent,
+                name: profileName,
+                about: profileDescription,
             })
         })
+        .then(checkData)
         .then((res) => {
             return res.json()
         })

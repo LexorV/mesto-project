@@ -7,3 +7,7 @@ export function initinalProfile(name, about, avatar) {
     profileDescription.textContent = about;
     avatarPicture.setAttribute('src', avatar);
 }
+export function saveNamePersonal(name, busy) {
+    profileName.textContent = name;
+    profileDescription.textContent = busy;
+}

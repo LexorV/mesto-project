@@ -10,8 +10,8 @@ import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile } from '../components/utils.js';
-import { sendCard, getCards, getNameData, saveNamePersonal, saveAvatarPersonal } from '../components/api.js';
+import { initinalProfile, saveNamePersonal } from '../components/utils.js';
+import { sendCard, getCards, getNameData, sendNamePersonal, saveAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -82,8 +82,11 @@ buttonCloseAvatar.addEventListener('click', function() {
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const profileButtonSave = document.querySelector('#profileButtonSave');
+    const newNameProfile = document.querySelector('#newNameProfile').value;
+    const newBusyProfile = document.querySelector('#newBusyProfile').value;
     callWaiting(profileButtonSave, 'Сохранение...')
-    saveNamePersonal().then(() => {
+    sendNamePersonal(newNameProfile, newBusyProfile).then(() => {
+            saveNamePersonal(newNameProfile, newBusyProfile);
             cleanerForm(editProfileForm);
             closePopup(popupEditProfile);
         })
@@ -129,6 +132,9 @@ editPlaceForm.addEventListener('submit', function(event) {
         })
         .finally(() => {
             callWaiting(placeButtonSavePlace, 'Сохранение')
+        })
+        .catch((err) => {
+            console.log(err);
         })
 });
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
