@@ -93,6 +93,9 @@ editProfileForm.addEventListener('submit', function(event) {
         .finally(() => {
             callWaiting(profileButtonSave, 'Сохранение');
         })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 editAvatarForm.addEventListener('submit', function(event) {
     event.preventDefault();

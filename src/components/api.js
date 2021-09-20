@@ -26,7 +26,9 @@ export function getCards() {
         })
         .then(checkData)
         .then(res => res.json())
-
+        .catch((err) => {
+            console.log(err);
+        })
 }
 export function getNameData() {
     return fetch(`${urlServ}users/me`, {
@@ -45,6 +47,7 @@ export function deleteCard(card) {
                 authorization: token,
             }
         })
+        .then(checkData)
         .catch((err) => {
             console.log(err);
         })
@@ -56,6 +59,7 @@ export function likesAdd(card) {
                 authorization: token,
             }
         })
+        .then(checkData)
         .catch((err) => {
             console.log(err);
         })
@@ -67,6 +71,7 @@ export function likesRemove(card) {
                 authorization: token,
             }
         })
+        .then(checkData)
         .catch((err) => {
             console.log(err);
         })
@@ -87,9 +92,6 @@ export function sendNamePersonal(profileName, profileDescription) {
         .then((res) => {
             return res.json()
         })
-        .catch((err) => {
-            console.log(err);
-        });
 };
 export function sendAvatarPersonal(avatarUrl) {
     return fetch(`${urlServ}users/me/avatar`, {
