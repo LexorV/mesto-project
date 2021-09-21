@@ -10,8 +10,9 @@ import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, setPopupCloseEventListeners } from '../components/modal.js';
-import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
+import { setProfileData, saveNamePersonal, saveAvatarPersonal } from '../components/profile.js';
 import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
+import { cleanerForm } from '../components/utils.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -50,7 +51,6 @@ const editAvatarForm = document.querySelector('#popupAvatarCheked');
 
 setPopupCloseEventListeners();
 
-//initinalProfile();
 //new
 activeValidForm(editPlaceForm, classFormObj);
 activeValidForm(editProfileForm, classFormObj);
@@ -147,19 +147,9 @@ editPlaceForm.addEventListener('submit', function(event) {
         })
 });
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
-    initinalProfile(data.name, data.about, data.avatar);
+    setProfileData(data.name, data.about, data.avatar);
     startCards(cards, data);
 })
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
 });
-
-function cleanerForm(form) {
-    const formList = Array.from(form.querySelectorAll('.popup__field'));
-    const buttonSave = form.querySelector('.popup__button-save');
-    formList.forEach((el) => {
-        el.value = '';
-    })
-    buttonSave.setAttribute('disabled', '');
-    buttonSave.classList.remove('popup__button-save_active');
-}
