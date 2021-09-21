@@ -9,9 +9,9 @@ import basket from '../images/basket.png';
 import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
-import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
-import { initinalProfile } from '../components/utils.js';
-import { sendCard, getCards, getNameData, saveNamePersonal, saveAvatarPersonal } from '../components/api.js';
+import { openPopup, closePopup, setPopupCloseEventListeners } from '../components/modal.js';
+import { setProfileData, saveNamePersonal, saveAvatarPersonal } from '../components/profile.js';
+import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -48,9 +48,8 @@ const editAvatarForm = document.querySelector('#popupAvatarCheked');
 
 /**text **/
 
-closePopupAll();
+setPopupCloseEventListeners();
 
-//initinalProfile();
 //new
 activeValidForm(editPlaceForm, classFormObj);
 activeValidForm(editProfileForm, classFormObj);
@@ -59,6 +58,8 @@ activeValidForm(editAvatarForm, classFormObj);
 
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function() {
+    document.querySelector('#newNameProfile').value = document.querySelector('#profileName').textContent;
+    document.querySelector('#newBusyProfile').value = document.querySelector('#profileDescription').textContent;
     openPopup(popupEditProfile);
 });
 buttonCloseProfile.addEventListener('click', function() {
@@ -82,22 +83,33 @@ buttonCloseAvatar.addEventListener('click', function() {
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const profileButtonSave = document.querySelector('#profileButtonSave');
+    const newNameProfile = document.querySelector('#newNameProfile').value;
+    const newBusyProfile = document.querySelector('#newBusyProfile').value;
     callWaiting(profileButtonSave, 'Сохранение...')
-    saveNamePersonal().then(() => {
-            cleanerForm(editProfileForm);
+    sendNamePersonal(newNameProfile, newBusyProfile).then(() => {
+            saveNamePersonal(newNameProfile, newBusyProfile);
+            cleanerForm(editProfileForm, classFormObj);
             closePopup(popupEditProfile);
+        })
+        .catch((err) => {
+            console.log(err);
         })
         .finally(() => {
             callWaiting(profileButtonSave, 'Сохранение');
-        })
+        });
 });
 editAvatarForm.addEventListener('submit', function(event) {
-    const saveAvatarButton = document.querySelector('#saveAvatarButton');
     event.preventDefault();
+    const saveAvatarButton = document.querySelector('#saveAvatarButton');
+    const newAvatarInput = document.querySelector('#newAvatarInput').value;
     callWaiting(saveAvatarButton, 'Сохранение...')
-    saveAvatarPersonal().then(() => {
-            cleanerForm(editAvatarForm);
+    sendAvatarPersonal(newAvatarInput).then(() => {
+            saveAvatarPersonal(newAvatarInput);
+            cleanerForm(editAvatarForm, classFormObj);
             closePopup(editAvatarForm);
+        })
+        .catch((err) => {
+            console.log(err);
         })
         .finally(() => {
             callWaiting(saveAvatarButton, 'Сохранение');
@@ -108,43 +120,44 @@ function callWaiting(classButton, textEdit) {
     classButton.textContent = textEdit
 }
 
-editPlaceForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const newNamePlace = document.querySelector('#newNamePlace').value;
-    const newPicturePlace = document.querySelector('#newPicturePlace').value;
-    const placeButtonSavePlace = document.querySelector('#placeButtonSave');
-    const newCardsArray = {
-        name: newNamePlace,
-        link: newPicturePlace
-    };
-    callWaiting(placeButtonSavePlace, 'Сохранение...')
-    Promise.all([sendCard(newCardsArray.name, newCardsArray.link), getNameData()]).then(([data, user]) => {
-            addPlace(data, placesList, user);
-        })
-        .then(() => {
-            cleanerForm(editPlaceForm);
-        })
-        .then(() => {
-            closePopup(popupNewPlace);
-        })
-        .finally(() => {
-            callWaiting(placeButtonSavePlace, 'Сохранение')
-        })
-});
-Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
-    initinalProfile(data.name, data.about, data.avatar);
-    startCards(cards, data);
+
+Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
+    setProfileData(user.name, user.about, user.avatar);
+    startCards(cards, user);
+    editPlaceForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const newNamePlace = document.querySelector('#newNamePlace').value;
+        const newPicturePlace = document.querySelector('#newPicturePlace').value;
+        const placeButtonSavePlace = document.querySelector('#placeButtonSave');
+        const newCardsArray = {
+            name: newNamePlace,
+            link: newPicturePlace
+        };
+        callWaiting(placeButtonSavePlace, 'Сохранение...')
+        sendCard(newCardsArray.name, newCardsArray.link)
+            .then((cards) => {
+                addPlace(cards, placesList, user);
+                cleanerForm(editPlaceForm, classFormObj);
+                closePopup(popupNewPlace);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                callWaiting(placeButtonSavePlace, 'Сохранение')
+            })
+    });
 })
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
 });
 
-function cleanerForm(form) {
-    const formList = Array.from(form.querySelectorAll('.popup__field'));
-    const buttonSave = form.querySelector('.popup__button-save');
+function cleanerForm(form, objectClass) {
+    const formList = Array.from(form.querySelectorAll(objectClass.inputSelector));
+    const buttonSave = form.querySelector(objectClass.submitButtonSelector);
     formList.forEach((el) => {
         el.value = '';
     })
     buttonSave.setAttribute('disabled', '');
-    buttonSave.classList.remove('popup__button-save_active');
+    buttonSave.classList.remove(objectClass.inactiveButtonClass);
 }

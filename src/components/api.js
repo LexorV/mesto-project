@@ -13,9 +13,7 @@ export function sendCard(nameCard, url) {
                 link: url
             })
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        .then(checkData)
         .then((res) => {
             return res.json()
         })
@@ -28,7 +26,9 @@ export function getCards() {
         })
         .then(checkData)
         .then(res => res.json())
-
+        .catch((err) => {
+            console.log(err);
+        })
 }
 export function getNameData() {
     return fetch(`${urlServ}users/me`, {
@@ -47,9 +47,7 @@ export function deleteCard(card) {
                 authorization: token,
             }
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        .then(checkData)
 }
 export function likesAdd(card) {
     return fetch(`${urlServ}cards/likes/${card._id}`, {
@@ -58,9 +56,7 @@ export function likesAdd(card) {
                 authorization: token,
             }
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        .then(checkData)
 };
 export function likesRemove(card) {
     return fetch(`${urlServ}cards/likes/${card._id}`, {
@@ -69,13 +65,9 @@ export function likesRemove(card) {
                 authorization: token,
             }
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        .then(checkData)
 }
-export function saveNamePersonal() {
-    profileName.textContent = document.querySelector('#newNameProfile').value;
-    profileDescription.textContent = document.querySelector('#newBusyProfile').value;
+export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {
             method: 'PATCH',
             headers: {
@@ -83,40 +75,16 @@ export function saveNamePersonal() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: profileName.textContent,
-                about: profileDescription.textContent,
+                name: profileName,
+                about: profileDescription,
             })
         })
+        .then(checkData)
         .then((res) => {
             return res.json()
         })
-        .catch((err) => {
-            console.log(err);
-        });
 };
-export function saveAvatarPersonal() {
-    sendProfileAvatar(newAvatarInput.value);
-    document.querySelector('.profile__avatar').setAttribute('src', newAvatarInput.value);
-    return fetch(`${urlServ}users/me/avatar`, {
-            method: 'PATCH',
-            headers: {
-                authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avatar: newAvatarInput.value,
-            })
-        })
-        .then((res) => {
-            return res.json()
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-}
-
-function sendProfileAvatar(avatarUrl) {
+export function sendAvatarPersonal(avatarUrl) {
     return fetch(`${urlServ}users/me/avatar`, {
             method: 'PATCH',
             headers: {
@@ -127,11 +95,11 @@ function sendProfileAvatar(avatarUrl) {
                 avatar: avatarUrl,
             })
         })
-        .catch((err) => {
-            console.log(err);
-        });
+        .then(checkData)
+        .then((res) => {
+            return res.json()
+        })
 }
-
 const checkData = (res) => {
     if (res.ok) {
         return res
