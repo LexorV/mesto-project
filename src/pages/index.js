@@ -9,7 +9,7 @@ import basket from '../images/basket.png';
 import iconHeart from '../images/Icon-heart.svg';
 import { activeValidForm } from '../components/validate.js';
 import { startCards, addPlace, placesList } from '../components/card.js';
-import { openPopup, closePopup, closePopupAll } from '../components/modal.js';
+import { openPopup, closePopup, setPopupCloseEventListeners } from '../components/modal.js';
 import { initinalProfile, saveNamePersonal, saveAvatarPersonal } from '../components/utils.js';
 import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
@@ -48,7 +48,7 @@ const editAvatarForm = document.querySelector('#popupAvatarCheked');
 
 /**text **/
 
-closePopupAll();
+setPopupCloseEventListeners();
 
 //initinalProfile();
 //new
@@ -90,11 +90,11 @@ editProfileForm.addEventListener('submit', function(event) {
             cleanerForm(editProfileForm);
             closePopup(popupEditProfile);
         })
-        .finally(() => {
-            callWaiting(profileButtonSave, 'Сохранение');
-        })
         .catch((err) => {
             console.log(err);
+        })
+        .finally(() => {
+            callWaiting(profileButtonSave, 'Сохранение');
         });
 });
 editAvatarForm.addEventListener('submit', function(event) {
