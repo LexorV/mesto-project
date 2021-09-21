@@ -12,7 +12,6 @@ import { startCards, addPlace, placesList } from '../components/card.js';
 import { openPopup, closePopup, setPopupCloseEventListeners } from '../components/modal.js';
 import { setProfileData, saveNamePersonal, saveAvatarPersonal } from '../components/profile.js';
 import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
-import { cleanerForm } from '../components/utils.js';
 import { Promise } from 'core-js';
 const classFormObj = {
     inputSelector: '.popup__field',
@@ -89,7 +88,7 @@ editProfileForm.addEventListener('submit', function(event) {
     callWaiting(profileButtonSave, 'Сохранение...')
     sendNamePersonal(newNameProfile, newBusyProfile).then(() => {
             saveNamePersonal(newNameProfile, newBusyProfile);
-            cleanerForm(editProfileForm);
+            cleanerForm(editProfileForm, classFormObj);
             closePopup(popupEditProfile);
         })
         .catch((err) => {
@@ -106,7 +105,7 @@ editAvatarForm.addEventListener('submit', function(event) {
     callWaiting(saveAvatarButton, 'Сохранение...')
     sendAvatarPersonal(newAvatarInput).then(() => {
             saveAvatarPersonal(newAvatarInput);
-            cleanerForm(editAvatarForm);
+            cleanerForm(editAvatarForm, classFormObj);
             closePopup(editAvatarForm);
         })
         .catch((err) => {
@@ -138,7 +137,7 @@ Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
         sendCard(newCardsArray.name, newCardsArray.link)
             .then((cards) => {
                 addPlace(cards, placesList, user);
-                cleanerForm(editPlaceForm);
+                cleanerForm(editPlaceForm, classFormObj);
                 closePopup(popupNewPlace);
             })
             .catch((err) => {
@@ -152,3 +151,13 @@ Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
 });
+
+function cleanerForm(form, objectClass) {
+    const formList = Array.from(form.querySelectorAll(objectClass.inputSelector));
+    const buttonSave = form.querySelector(objectClass.submitButtonSelector);
+    formList.forEach((el) => {
+        el.value = '';
+    })
+    buttonSave.setAttribute('disabled', '');
+    buttonSave.classList.remove(objectClass.inactiveButtonClass);
+}
