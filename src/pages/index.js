@@ -59,6 +59,8 @@ activeValidForm(editAvatarForm, classFormObj);
 
 /** Event handler **/
 profileButtonEdit.addEventListener('click', function() {
+    document.querySelector('#newNameProfile').value = document.querySelector('#profileName').textContent;
+    document.querySelector('#newBusyProfile').value = document.querySelector('#profileDescription').textContent;
     openPopup(popupEditProfile);
 });
 buttonCloseProfile.addEventListener('click', function() {
@@ -139,12 +141,13 @@ editPlaceForm.addEventListener('submit', function(event) {
         .then(() => {
             closePopup(popupNewPlace);
         })
-        .finally(() => {
-            callWaiting(placeButtonSavePlace, 'Сохранение')
-        })
         .catch((err) => {
             console.log(err);
         })
+        .finally(() => {
+            callWaiting(placeButtonSavePlace, 'Сохранение')
+        })
+
 });
 Promise.all([getNameData(), getCards()]).then(([data, cards]) => {
     setProfileData(data.name, data.about, data.avatar);
