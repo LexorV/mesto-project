@@ -26,9 +26,7 @@ export function getCards() {
         })
         .then(checkData)
         .then(res => res.json())
-        .catch((err) => {
-            console.log(err);
-        })
+
 }
 export function getNameData() {
     return fetch(`${urlServ}users/me`, {
@@ -57,6 +55,9 @@ export function likesAdd(card) {
             }
         })
         .then(checkData)
+        .then((res) => {
+            return res.json()
+        })
 };
 export function likesRemove(card) {
     return fetch(`${urlServ}cards/likes/${card._id}`, {
@@ -66,6 +67,9 @@ export function likesRemove(card) {
             }
         })
         .then(checkData)
+        .then((res) => {
+            return res.json()
+        })
 }
 export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {

@@ -122,32 +122,35 @@ function callWaiting(classButton, textEdit) {
 
 
 Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
-    setProfileData(user.name, user.about, user.avatar);
-    startCards(cards, user);
-    editPlaceForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const newNamePlace = document.querySelector('#newNamePlace').value;
-        const newPicturePlace = document.querySelector('#newPicturePlace').value;
-        const placeButtonSavePlace = document.querySelector('#placeButtonSave');
-        const newCardsArray = {
-            name: newNamePlace,
-            link: newPicturePlace
-        };
-        callWaiting(placeButtonSavePlace, 'Сохранение...')
-        sendCard(newCardsArray.name, newCardsArray.link)
-            .then((cards) => {
-                addPlace(cards, placesList, user);
-                cleanerForm(editPlaceForm, classFormObj);
-                closePopup(popupNewPlace);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                callWaiting(placeButtonSavePlace, 'Сохранение')
-            })
+        setProfileData(user.name, user.about, user.avatar);
+        startCards(cards, user);
+        editPlaceForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newNamePlace = document.querySelector('#newNamePlace').value;
+            const newPicturePlace = document.querySelector('#newPicturePlace').value;
+            const placeButtonSavePlace = document.querySelector('#placeButtonSave');
+            const newCardsArray = {
+                name: newNamePlace,
+                link: newPicturePlace
+            }
+            callWaiting(placeButtonSavePlace, 'Сохранение...')
+            sendCard(newCardsArray.name, newCardsArray.link)
+                .then((cards) => {
+                    addPlace(cards, placesList, user);
+                    cleanerForm(editPlaceForm, classFormObj);
+                    closePopup(popupNewPlace);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    callWaiting(placeButtonSavePlace, 'Сохранение')
+                })
+        })
+    })
+    .catch((err) => {
+        console.log(err);
     });
-})
 closeBigPicture.addEventListener('click', function() {
     closePopup(popupBigPlace);
 });
