@@ -40,18 +40,18 @@ function reaturePlaces(data, user) {
     buttonHeart.addEventListener('click', function() {
         if (!buttonHeart.classList.contains('place__button-heart_active')) {
             likesAdd(data)
-                .then(() => {
+                .then((res) => {;
                     buttonHeart.classList.add('place__button-heart_active');
-                    amountCard.textContent = Number(amountCard.textContent) + 1;
+                    amountCard.textContent = res.likes.length;
                 })
                 .catch((err) => {
                     console.log(err);
                 })
         } else {
             likesRemove(data)
-                .then(() => {
+                .then((res) => {
                     buttonHeart.classList.remove('place__button-heart_active');
-                    amountCard.textContent = Number(amountCard.textContent) - 1;
+                    amountCard.textContent = res.likes.length;
                 })
                 .catch((err) => {
                     console.log(err);
