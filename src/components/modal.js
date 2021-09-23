@@ -1,15 +1,18 @@
-const handleESC = (form) => (evt) => {
-    if (evt.key === 'Escape') {
-        closePopup(form);
-    };
-}
+let formTemp;
 export function openPopup(form) {
+    formTemp = form;
     form.classList.add('popup_opened');
-    document.addEventListener('keydown', handleESC(form));
-};
+    document.addEventListener('keydown', handleESC);
+}
 export function closePopup(form) {
     form.classList.remove('popup_opened');
-    document.removeEventListener('keydown', handleESC(form));
+    document.removeEventListener('keydown', handleESC);
+}
+
+function handleESC(evt) {
+    if (evt.key === 'Escape') {
+        closePopup(formTemp);
+    };
 }
 
 
