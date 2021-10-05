@@ -13,6 +13,7 @@ import { openPopup, closePopup, setPopupCloseEventListeners } from '../component
 import { setProfileData, saveNamePersonal, saveAvatarPersonal } from '../components/profile.js';
 import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
+
 const classFormObj = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button-save',
@@ -119,6 +120,7 @@ editAvatarForm.addEventListener('submit', function(event) {
 function callWaiting(classButton, textEdit) {
     classButton.textContent = textEdit
 }
+
 
 
 Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
