@@ -1,3 +1,14 @@
+export default class Card {
+    constructor(selectorObj) {
+        this._selectorObj = selectorObj;
+    }
+    _getPlaces() {
+        const placesMain = document.querySelector('this.selectorObj.placesMain').content;
+        const newPlace = placesMain.querySelector('.place').cloneNode(true);
+    }
+
+}
+//======================================================
 import { openPopup } from './modal.js';
 import { deleteCard, likesAdd, likesRemove, } from './api.js';
 export const placesList = document.querySelector('.places__list');
@@ -9,7 +20,6 @@ export function startCards(arrayCard, data) {
         return element
     });
 }
-
 
 function reaturePlaces(data, user) {
     const placesMain = document.querySelector('#newplaces').content;
