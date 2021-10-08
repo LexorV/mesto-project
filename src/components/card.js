@@ -1,11 +1,16 @@
 export default class Card {
-    constructor(selectorObj) {
-        this._selectorObj = selectorObj;
+    constructor({ data, handleCardClick }, cardSelector) {
+        this._selector = cardSelector;
     }
     _getPlaces() {
-        const placesMain = document.querySelector('this.selectorObj.placesMain').content;
-        const newPlace = placesMain.querySelector('.place').cloneNode(true);
+        const placesMain = document
+            .querySelector(this._selector)
+            .content
+            .querySelector('.place')
+            .cloneNode(true);
+        return placesMain
     }
+
 
 }
 //======================================================
