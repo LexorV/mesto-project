@@ -35,7 +35,7 @@ const whoIsTheGoat = [
 const profileButtonEdit = document.querySelector('.profile__edit-button');
 const buttonCloseProfile = document.querySelector('#buttonCloseProfile');
 const popupButtonAdd = document.querySelector('.profile__button-add');
-const closeBigPicture = document.querySelector('#closeBigPicture');
+//const closeBigPicture = document.querySelector('#closeBigPicture');
 const buttonCloseAvatar = document.querySelector('#buttonCloseAvatar');
 /** container **/
 const popupNewPlace = document.querySelector('#popupEditPlace');
@@ -153,9 +153,9 @@ Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
     .catch((err) => {
         console.log(err);
     });
-closeBigPicture.addEventListener('click', function() {
-    closePopup(popupBigPlace);
-});
+// closeBigPicture.addEventListener('click', function() {
+//     closePopup(popupBigPlace);
+// });
 
 function cleanerForm(form, objectClass) {
     const formList = Array.from(form.querySelectorAll(objectClass.inputSelector));

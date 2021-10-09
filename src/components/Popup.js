@@ -1,9 +1,12 @@
 export default class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this.close = this.close.bind(this);
     }
 
     open() {
+        console.log("Hello from class Popup");
         this._popup.classList.add('popup_opened');
         document.addEventListener('keydown', this._handleEscClose);
     }
@@ -23,12 +26,14 @@ export default class Popup {
 }
 
 
-class PopupWithImage extends Popup {
+export class PopupWithImage extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
     }
 
     open({ imgSrcUrl, namePlaceText, imgSelector, textImgSelector }) {
+        console.log("Hello from class PopupWithImage");
+
         this._popup.querySelector(imgSelector).src = imgSrcUrl;
         this._popup.querySelector(textImgSelector).textContent = namePlaceText;
         super.open();
@@ -50,7 +55,8 @@ class PopupWithForm extends Popup {
         this._inputList = this._form.querySelectorAll(".popup__field");
         this._formsValues = Array.from(this._inputList).map((input) => {
             return {
-                [input.id]: input.value }
+                [input.id]: input.value
+            }
         })
 
 
@@ -67,6 +73,7 @@ class PopupWithForm extends Popup {
     }
 
     close() {
+        super.close();
         this._form.reset();
     }
 }

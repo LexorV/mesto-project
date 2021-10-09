@@ -26,10 +26,17 @@ export function startCards(arrayCard, data) {
     });
 }
 
+import { PopupWithImage } from './Popup.js';
+
+const popupBigPlace = new PopupWithImage('#popupBigPlace');
+
+
 function reaturePlaces(data, user) {
     const placesMain = document.querySelector('#newplaces').content;
     const newPlace = placesMain.querySelector('.place').cloneNode(true);
     const placePicture = newPlace.querySelector('.place__picture');
+
+
     const removeButton = newPlace.querySelector('.place__remove');
     const placeName = newPlace.querySelector('.place__name');
     const buttonHeart = newPlace.querySelector('.place__button-heart');
@@ -73,9 +80,14 @@ function reaturePlaces(data, user) {
                 })
         }
     });
+
+    popupBigPlace.setEventListeners('#closeBigPicture');
+
+
     placePicture.addEventListener('click', function() {
         chengeBigPlace(data, document.querySelector('#bigPicturePlace'), document.querySelector('#bigPictureName'));
-        openPopup(popupBigPlace);
+        // openPopup(popupBigPlace);
+        popupBigPlace.open({ imgSrcUrl: data.link, namePlaceText: data.name, imgSelector: '#bigPicturePlace', textImgSelector: '#bigPictureName' })
     });
     return newPlace;
 };
