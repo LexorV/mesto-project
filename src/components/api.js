@@ -4,6 +4,8 @@ export class Api {
     constructor({ token, urlServ }) {
         this._token = token;
         this._urlServ = urlServ;
+
+        this._checkData = this._checkData.bind(this);
     }
 
     _checkData(res) {
@@ -32,14 +34,15 @@ export class Api {
     };
 
     getCards() {
-        return fetch(`${this.urlServ}cards`, {
+        const url = this._urlServ;
+        const token = this._token;
+        return fetch(`${url}cards`, {
                 headers: {
-                    authorization: this.token,
+                    authorization: token,
                 }
             })
             .then(this._checkData)
             .then(res => res.json())
-
     }
 
     getNameData() {

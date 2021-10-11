@@ -14,6 +14,48 @@ import { setProfileData, saveNamePersonal, saveAvatarPersonal } from '../compone
 import { sendCard, getCards, getNameData, sendNamePersonal, sendAvatarPersonal } from '../components/api.js';
 import { Promise } from 'core-js';
 
+import { Card } from '../components/card';
+import { Api } from '../components/api';
+import { PopupWithImage } from '../components/Popup';
+
+const token = '1898bf9a-848d-4e76-8628-36735272cef2';
+const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
+
+// const testCard = new Card({  })
+
+const api = new Api({ token, urlServ });
+const popupImage = new PopupWithImage("#popupBigPlace");
+
+
+Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
+    console.log(cards)
+    console.log(user);
+    console.log(cards[20]);
+
+    const cardsArr = cards.map(card => {
+        const createdCard = new Card({
+            data: card,
+            handleCardClick: () => {
+                popupImage.open({ imgSrcUrl: card.link, namePlaceText: card.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
+            },
+            user
+        }, '#newplaces');
+        createdCard.generate();
+        return createdCard;
+    })
+
+    cardsArr.forEach(generatedCard => {
+        document.querySelector(".places__list").prepend(generatedCard._newPlace);
+    })
+
+
+
+    // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
+    // card.generate();
+    // console.log(card);
+})
+
+
 const classFormObj = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button-save',
@@ -123,39 +165,39 @@ function callWaiting(classButton, textEdit) {
 
 
 
-Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
-        setProfileData(user.name, user.about, user.avatar);
-        startCards(cards, user);
-        editPlaceForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const newNamePlace = document.querySelector('#newNamePlace').value;
-            const newPicturePlace = document.querySelector('#newPicturePlace').value;
-            const placeButtonSavePlace = document.querySelector('#placeButtonSave');
-            const newCardsArray = {
-                name: newNamePlace,
-                link: newPicturePlace
-            }
-            callWaiting(placeButtonSavePlace, 'Сохранение...')
-            sendCard(newCardsArray.name, newCardsArray.link)
-                .then((cards) => {
-                    addPlace(cards, placesList, user);
-                    cleanerForm(editPlaceForm, classFormObj);
-                    closePopup(popupNewPlace);
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    callWaiting(placeButtonSavePlace, 'Сохранение')
-                })
-        })
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-// closeBigPicture.addEventListener('click', function() {
-//     closePopup(popupBigPlace);
-// });
+// Promise.all([getNameData(), getCards()]).then(([user, cards]) => {
+//         setProfileData(user.name, user.about, user.avatar);
+//         startCards(cards, user);
+//         editPlaceForm.addEventListener('submit', function(event) {
+//             event.preventDefault();
+//             const newNamePlace = document.querySelector('#newNamePlace').value;
+//             const newPicturePlace = document.querySelector('#newPicturePlace').value;
+//             const placeButtonSavePlace = document.querySelector('#placeButtonSave');
+//             const newCardsArray = {
+//                 name: newNamePlace,
+//                 link: newPicturePlace
+//             }
+//             callWaiting(placeButtonSavePlace, 'Сохранение...')
+//             sendCard(newCardsArray.name, newCardsArray.link)
+//                 .then((cards) => {
+//                     addPlace(cards, placesList, user);
+//                     cleanerForm(editPlaceForm, classFormObj);
+//                     closePopup(popupNewPlace);
+//                 })
+//                 .catch((err) => {
+//                     console.log(err);
+//                 })
+//                 .finally(() => {
+//                     callWaiting(placeButtonSavePlace, 'Сохранение')
+//                 })
+//         })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+// // closeBigPicture.addEventListener('click', function() {
+// //     closePopup(popupBigPlace);
+// // });
 
 function cleanerForm(form, objectClass) {
     const formList = Array.from(form.querySelectorAll(objectClass.inputSelector));
