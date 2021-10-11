@@ -4,6 +4,7 @@ export class Card {
         this._handleCardClick = handleCardClick;
         this._cardSelector = cardSelector;
         this.currCardIsLiked = !!data.likes.find(likeObj => likeObj._id === user._id)
+        this.checkDeleteBasket = data.owner._id != user._id
 
         this._placesMain = document.querySelector(cardSelector).content;
         this._newPlace = this._placesMain.querySelector('.place').cloneNode(true);
@@ -40,6 +41,11 @@ export class Card {
         this._buttonHeart.classList.remove('place__button-heart_active')
         this.currCardIsLiked = false;
     }
+    _checkBasketDelete() {
+        if (this.checkDeleteBasket) {
+            this._removeButton.style.display = 'none';
+        }
+    }
 
     likeBtnListener() {
         if (this.currCardIsLiked) this._unlikeCard()
@@ -56,8 +62,9 @@ export class Card {
     generate() {
         this._placeName.textContent = this._data.name
         this._placePicture.src = this._data.link
+        this._amountCard.textContent = this._data.likes.length;
+        this._checkBasketDelete()
 
-        this._setEventListeners();
     }
 }
 //======================================================
