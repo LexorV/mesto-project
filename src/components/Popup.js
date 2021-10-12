@@ -2,12 +2,14 @@ export default class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this);
-        this.close = this.close.bind(this);
+        this._setPopupCloseEventListeners = this.setPopupCloseEventListeners.bind(this);
+        //this.close = this.close.bind(this);
     }
 
     open() {
         console.log("Hello from class Popup");
         this._popup.classList.add('popup_opened');
+        console.log(this._popup)
         document.addEventListener('keydown', this._handleEscClose);
     }
     close() {
@@ -19,9 +21,19 @@ export default class Popup {
             this.close();
         };
     }
+    setPopupCloseEventListeners() {
+        this._popup.addEventListener('click', (e) => {
+            if (e.target == e.currentTarget) {
+                this.close();
+            }
+        })
+    }
 
     setEventListeners(btnClose) {
-        this._popup.querySelector(btnClose).addEventListener('click', this.close);
+        this._popup.querySelector(btnClose).addEventListener('click', () => {
+            this.close()
+        });
+
     }
 }
 
@@ -29,6 +41,7 @@ export default class Popup {
 export class PopupWithImage extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
+        // setEventListeners();
     }
 
     open({ imgSrcUrl, namePlaceText, imgSelector, textImgSelector }) {
@@ -38,6 +51,7 @@ export class PopupWithImage extends Popup {
         this._popup.querySelector(textImgSelector).textContent = namePlaceText;
         super.open();
     }
+
 }
 
 

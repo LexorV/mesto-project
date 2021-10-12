@@ -38,8 +38,11 @@ Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
             handleCardClick: () => {
                 popupImage.open({ imgSrcUrl: card.link, namePlaceText: card.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
             },
-            user
+            user,
+            // deleteCard: api.deleteCard(card),
         }, '#newplaces');
+        popupImage.setEventListeners(".popup__button-close");
+        popupImage.setPopupCloseEventListeners()
         createdCard.generate();
         return createdCard;
     })
@@ -91,7 +94,7 @@ const editAvatarForm = document.querySelector('#popupAvatarCheked');
 
 /**text **/
 
-setPopupCloseEventListeners();
+//setPopupCloseEventListeners();
 
 //new
 activeValidForm(editPlaceForm, classFormObj);

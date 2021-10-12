@@ -1,36 +1,37 @@
 export class Card {
-    constructor({ data, handleCardClick, user }, cardSelector) {
-        this._data = data;
-        this._handleCardClick = handleCardClick;
-        this._cardSelector = cardSelector;
-        this.currCardIsLiked = !!data.likes.find(likeObj => likeObj._id === user._id)
-        this.checkDeleteBasket = data.owner._id != user._id
+    constructor({ data, handleCardClick, user, deleteCard }, cardSelector) {
+            this._data = data;
+            this.deleteCard = deleteCard;
+            this._handleCardClick = handleCardClick;
+            this._cardSelector = cardSelector;
+            this.currCardIsLiked = !!data.likes.find(likeObj => likeObj._id === user._id);
+            this.checkDeleteBasket = data.owner._id != user._id;
 
-        this._placesMain = document.querySelector(cardSelector).content;
-        this._newPlace = this._placesMain.querySelector('.place').cloneNode(true);
-        this._placePicture = this._newPlace.querySelector('.place__picture');
-        this._removeButton = this._newPlace.querySelector('.place__remove');
-        this._placeName = this._newPlace.querySelector('.place__name');
-        this._buttonHeart = this._newPlace.querySelector('.place__button-heart');
-        this._amountCard = this._newPlace.querySelector('.place__counter-heart');
+            this._placesMain = document.querySelector(cardSelector).content;
+            this._newPlace = this._placesMain.querySelector('.place').cloneNode(true);
+            this._placePicture = this._newPlace.querySelector('.place__picture');
+            this._removeButton = this._newPlace.querySelector('.place__remove');
+            this._placeName = this._newPlace.querySelector('.place__name');
+            this._buttonHeart = this._newPlace.querySelector('.place__button-heart');
+            this._amountCard = this._newPlace.querySelector('.place__counter-heart');
 
-        this._handleCardClick = this._handleCardClick.bind(this);
-        this.likeBtnListener = this.likeBtnListener.bind(this);
-        this._likeCard = this._likeCard.bind(this);
-        this.__unlikeCard = this._unlikeCard(this);
+            this._handleCardClick = this._handleCardClick.bind(this);
+            this.likeBtnListener = this.likeBtnListener.bind(this);
+            this._likeCard = this._likeCard.bind(this);
+            this.__unlikeCard = this._unlikeCard(this);
 
-    }
-
-    deleteCard() {
-        console.log("card delete")
-            // this.api.deleteCard(this._data)
-            //     .then(() => {
-            //         this._newPlace.remove();
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     })
-    }
+        }
+        /*
+            deleteCard() {
+                console.log("card delete")
+                    //  this.deleteCard(this._data)
+                    //     .then(() => {
+                    //         this._newPlace.remove();
+                    //     })
+                    //     .catch((err) => {
+                    //         console.log(err);
+                    //     })
+            }*/
 
     _likeCard() {
         this._buttonHeart.classList.add('place__button-heart_active')
@@ -54,7 +55,7 @@ export class Card {
 
     _setEventListeners() {
         this._buttonHeart.addEventListener('click', this.likeBtnListener)
-        this._removeButton.addEventListener('click', this.deleteCard)
+            //this._removeButton.addEventListener('click', this.deleteCard)
         this._placePicture.addEventListener('click', this._handleCardClick)
     }
 
@@ -64,6 +65,7 @@ export class Card {
         this._placePicture.src = this._data.link
         this._amountCard.textContent = this._data.likes.length;
         this._checkBasketDelete()
+        this._setEventListeners()
 
     }
 }
