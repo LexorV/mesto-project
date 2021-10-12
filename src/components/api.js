@@ -148,6 +148,7 @@ export function sendCard(nameCard, url) {
             return res.json()
         })
 };
+/*
 export function getCards() {
     return fetch(`${urlServ}cards`, {
             headers: {
@@ -200,7 +201,8 @@ export function likesRemove(card) {
         .then((res) => {
             return res.json()
         })
-}
+}*/
+/*
 export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {
             method: 'PATCH',
@@ -234,7 +236,7 @@ export function sendAvatarPersonal(avatarUrl) {
             return res.json()
         })
 }
-
+*/
 const checkData = res => {
     if (res.ok) {
         return res

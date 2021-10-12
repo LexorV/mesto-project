@@ -17,6 +17,7 @@ import { Promise } from 'core-js';
 import { Card } from '../components/card';
 import { Api } from '../components/api';
 import { PopupWithImage } from '../components/Popup';
+import { Section } from '../components/Section';
 
 const token = '1898bf9a-848d-4e76-8628-36735272cef2';
 const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
@@ -30,32 +31,52 @@ const popupImage = new PopupWithImage("#popupBigPlace");
 Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
     console.log(cards)
     console.log(user);
-    console.log(cards[20]);
+    // console.log(cards[20]);
 
     const cardsArr = cards.map(card => {
-        const createdCard = new Card({
-            data: card,
-            handleCardClick: () => {
-                popupImage.open({ imgSrcUrl: card.link, namePlaceText: card.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
-            },
-            user,
-            // deleteCard: api.deleteCard(card),
-        }, '#newplaces');
-        popupImage.setEventListeners(".popup__button-close");
-        popupImage.setPopupCloseEventListeners()
-        createdCard.generate();
-        return createdCard;
-    })
-
+            const createdCard = new Card({
+                data: card,
+                handleCardClick: () => {
+                    popupImage.open({ imgSrcUrl: card.link, namePlaceText: card.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
+                },
+                user,
+                deleteCard: '',
+                likesAdd: ((test) => {
+                    api.likesAdd(card).then((res) => {;
+                            console.log(test)
+                            test.textContent = res.likes.length;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                }),
+                likesRemove: ((test) => {
+                    api.likesRemove(card).then((res) => {
+                            test.textContent = res.likes.length;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                })
+            }, '#newplaces');
+            popupImage.setEventListeners(".popup__button-close");
+            popupImage.setPopupCloseEventListeners()
+            createdCard.generate();
+            return createdCard;
+        })
+        /*
+        const section = new Section({
+            renderer: (item) => {
+                const card = createdCard()
+                section.addItem()
+            }
+        })*/
     cardsArr.forEach(generatedCard => {
-        document.querySelector(".places__list").prepend(generatedCard._newPlace);
-    })
-
-
-
-    // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
-    // card.generate();
-    // console.log(card);
+            document.querySelector(".places__list").prepend(generatedCard._newPlace);
+        })
+        // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
+        // card.generate();
+        // console.log(card);
 })
 
 
@@ -125,7 +146,7 @@ buttonCloseAvatar.addEventListener('click', function() {
 });
 
 
-
+/*
 editProfileForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const profileButtonSave = document.querySelector('#profileButtonSave');
@@ -165,7 +186,7 @@ editAvatarForm.addEventListener('submit', function(event) {
 function callWaiting(classButton, textEdit) {
     classButton.textContent = textEdit
 }
-
+*/
 
 
 // Promise.all([getNameData(), getCards()]).then(([user, cards]) => {

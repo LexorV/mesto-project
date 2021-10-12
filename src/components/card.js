@@ -1,9 +1,11 @@
 export class Card {
-    constructor({ data, handleCardClick, user, deleteCard }, cardSelector) {
+    constructor({ data, handleCardClick, user, deleteCard, likesAdd, likesRemove }, cardSelector) {
             this._data = data;
             this.deleteCard = deleteCard;
             this._handleCardClick = handleCardClick;
             this._cardSelector = cardSelector;
+            this._likeAdd = likesAdd;
+            this.likesRemove = likesRemove;
             this.currCardIsLiked = !!data.likes.find(likeObj => likeObj._id === user._id);
             this.checkDeleteBasket = data.owner._id != user._id;
 
@@ -17,9 +19,6 @@ export class Card {
 
             this._handleCardClick = this._handleCardClick.bind(this);
             this.likeBtnListener = this.likeBtnListener.bind(this);
-            this._likeCard = this._likeCard.bind(this);
-            this.__unlikeCard = this._unlikeCard(this);
-
         }
         /*
             deleteCard() {
@@ -35,12 +34,16 @@ export class Card {
 
     _likeCard() {
         this._buttonHeart.classList.add('place__button-heart_active')
-        this.currCardIsLiked = true;
+            // this.currCardIsLiked = true;
+        this._likeAdd(this._amountCard);
+        this._amountCard.length;
     }
 
     _unlikeCard() {
         this._buttonHeart.classList.remove('place__button-heart_active')
-        this.currCardIsLiked = false;
+            // this.currCardIsLiked = false;
+        this.likesRemove(this._amountCard);
+        this._amountCard.length;
     }
     _checkBasketDelete() {
         if (this.checkDeleteBasket) {
@@ -49,8 +52,11 @@ export class Card {
     }
 
     likeBtnListener() {
-        if (this.currCardIsLiked) this._unlikeCard()
-        else this._likeCard()
+        if (!this._buttonHeart.classList.contains('place__button-heart_active')) {
+            this._likeCard();
+        } else {
+            this._unlikeCard();
+        }
     }
 
     _setEventListeners() {
@@ -70,6 +76,7 @@ export class Card {
     }
 }
 //======================================================
+/*
 import { openPopup } from './modal.js';
 import { deleteCard, likesAdd, likesRemove, } from './api.js';
 export const placesList = document.querySelector('.places__list');
@@ -172,4 +179,4 @@ function renderLikes(DOMelement, likesArray, user) {
     if (checkLike(likesArray, user)) {
         DOMelement.querySelector('.place__button-heart').classList.add('place__button-heart_active');
     }
-}
+}*/
