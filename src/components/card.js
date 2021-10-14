@@ -1,50 +1,30 @@
 export class Card {
-    constructor({ data, handleCardClick, user, deleteCard, likesAdd, likesRemove }, cardSelector) {
+    constructor({ data, handleCardClick, api }, cardSelector, user) {
             this._data = data;
-            this.deleteCard = deleteCard;
             this._handleCardClick = handleCardClick;
             this._cardSelector = cardSelector;
-            this._likeAdd = likesAdd;
-            this.likesRemove = likesRemove;
-            this.currCardIsLiked = !!data.likes.find(likeObj => likeObj._id === user._id);
-            this.checkDeleteBasket = data.owner._id != user._id;
-
-            this._placesMain = document.querySelector(cardSelector).content;
-            this._newPlace = this._placesMain.querySelector('.place').cloneNode(true);
-            this._placePicture = this._newPlace.querySelector('.place__picture');
-            this._removeButton = this._newPlace.querySelector('.place__remove');
-            this._placeName = this._newPlace.querySelector('.place__name');
-            this._buttonHeart = this._newPlace.querySelector('.place__button-heart');
-            this._amountCard = this._newPlace.querySelector('.place__counter-heart');
-
-            this._handleCardClick = this._handleCardClick.bind(this);
+            this._api = api;
+            this._user = user;
             this.likeBtnListener = this.likeBtnListener.bind(this);
         }
         /*
-            deleteCard() {
-                console.log("card delete")
-                    //  this.deleteCard(this._data)
-                    //     .then(() => {
-                    //         this._newPlace.remove();
-                    //     })
-                    //     .catch((err) => {
-                    //         console.log(err);
-                    //     })
-            }*/
+                    
 
-    _likeCard() {
-        this._buttonHeart.classList.add('place__button-heart_active')
-            // this.currCardIsLiked = true;
-        this._likeAdd(this._amountCard);
-        this._amountCard.length;
+                    this._handleCardClick = this._handleCardClick.bind(this);
+                    this.likeBtnListener = this.likeBtnListener.bind(this);
+                }*/
+
+    deleteCard() {
+        console.log("card delete")
+            //  this.deleteCard(this._data)
+            //     .then(() => {
+            //         this._newPlace.remove();
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     })
     }
 
-    _unlikeCard() {
-        this._buttonHeart.classList.remove('place__button-heart_active')
-            // this.currCardIsLiked = false;
-        this.likesRemove(this._amountCard);
-        this._amountCard.length;
-    }
     _checkBasketDelete() {
         if (this.checkDeleteBasket) {
             this._removeButton.style.display = 'none';
@@ -53,9 +33,25 @@ export class Card {
 
     likeBtnListener() {
         if (!this._buttonHeart.classList.contains('place__button-heart_active')) {
-            this._likeCard();
+            this._api.
+            likesAdd(this._data)
+                .then((res) => {
+                    this._buttonHeart.classList.add('place__button-heart_active');
+                    this._amountCard.textContent = res.likes.length;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         } else {
-            this._unlikeCard();
+            this._api.
+            likesRemove(this._data)
+                .then((res) => {
+                    this._buttonHeart.classList.remove('place__button-heart_active');
+                    this._amountCard.textContent = res.likes.length;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
     }
 
@@ -64,14 +60,37 @@ export class Card {
             //this._removeButton.addEventListener('click', this.deleteCard)
         this._placePicture.addEventListener('click', this._handleCardClick)
     }
+    _checkLike() {
 
+        const result = this._data.likes.some((resident) => {
+            return resident._id == this._user._id
+        })
+        return result
+    }
 
     generate() {
+
+        this._placesMain = document.querySelector(this._cardSelector).content;
+        this._newPlace = this._placesMain.querySelector('.place').cloneNode(true);
+        this._placePicture = this._newPlace.querySelector('.place__picture');
+        this._removeButton = this._newPlace.querySelector('.place__remove');
+        this._placeName = this._newPlace.querySelector('.place__name');
+        this._buttonHeart = this._newPlace.querySelector('.place__button-heart');
+        this._amountCard = this._newPlace.querySelector('.place__counter-heart');
         this._placeName.textContent = this._data.name
         this._placePicture.src = this._data.link
         this._amountCard.textContent = this._data.likes.length;
         this._checkBasketDelete()
         this._setEventListeners()
+            //console.log(this._buttonHeart)
+        if (this._data.owner._id != this._user._id) {
+            this._removeButton.style.display = 'none';
+        }
+        if (this._checkLike()) {
+            this._buttonHeart.classList.add('place__button-heart_active');
+        }
+
+        return this._newPlace
 
     }
 }

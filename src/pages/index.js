@@ -29,55 +29,38 @@ const popupImage = new PopupWithImage("#popupBigPlace");
 
 
 Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
-    console.log(cards)
-    console.log(user);
-    // console.log(cards[20]);
+        console.log(cards)
+        console.log(user);
+        // console.log(cards[20]);
 
-    const cardsArr = cards.map(card => {
-            const createdCard = new Card({
-                data: card,
-                handleCardClick: () => {
-                    popupImage.open({ imgSrcUrl: card.link, namePlaceText: card.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
-                },
-                user,
-                deleteCard: '',
-                likesAdd: ((test) => {
-                    api.likesAdd(card).then((res) => {;
-                            console.log(test)
-                            test.textContent = res.likes.length;
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        })
-                }),
-                likesRemove: ((test) => {
-                    api.likesRemove(card).then((res) => {
-                            test.textContent = res.likes.length;
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        })
-                })
-            }, '#newplaces');
-            popupImage.setEventListeners(".popup__button-close");
-            popupImage.setPopupCloseEventListeners()
-            createdCard.generate();
-            return createdCard;
-        })
-        /*
-        const section = new Section({
-            renderer: (item) => {
-                const card = createdCard()
-                section.addItem()
+        const cardsContainer = new Section({
+            items: cards,
+            renderer: (cards) => {
+                const createdCard = new Card({
+                    data: cards,
+                    handleCardClick: () => {
+                        popupImage.open({ imgSrcUrl: cards.link, namePlaceText: cards.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
+                    },
+                    api: api
+                }, '#newplaces', user);
+                const cardElement = createdCard.generate();
+                // console.log(createdCard);
+                cardsContainer.addItem(cardElement);
             }
-        })*/
-    cardsArr.forEach(generatedCard => {
-            document.querySelector(".places__list").prepend(generatedCard._newPlace);
-        })
-        // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
-        // card.generate();
-        // console.log(card);
-})
+        }, '.places__list')
+        cardsContainer.rendererItems();
+    })
+    /*
+    const section = new Section({
+        renderer: (item) => {
+            const card = createdCard()
+            section.addItem()
+        }
+    })*/
+    // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
+    // card.generate();
+    // console.log(card);
+    //})
 
 
 const classFormObj = {
