@@ -89,7 +89,6 @@ export class Card {
         if (this._checkLike()) {
             this._buttonHeart.classList.add('place__button-heart_active');
         }
-
         return this._newPlace
 
     }

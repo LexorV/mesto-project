@@ -16,7 +16,7 @@ import { Promise } from 'core-js';
 
 import { Card } from '../components/card';
 import { Api } from '../components/api';
-import { PopupWithImage } from '../components/Popup';
+import { PopupWithImage, PopupWithForm } from '../components/Popup';
 import { Section } from '../components/Section';
 
 const token = '1898bf9a-848d-4e76-8628-36735272cef2';
@@ -29,38 +29,39 @@ const popupImage = new PopupWithImage("#popupBigPlace");
 
 
 Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
-        console.log(cards)
-        console.log(user);
-        // console.log(cards[20]);
+    console.log(cards)
+    console.log(user);
+    // console.log(cards[20]);
 
-        const cardsContainer = new Section({
-            items: cards,
-            renderer: (cards) => {
-                const createdCard = new Card({
-                    data: cards,
-                    handleCardClick: () => {
-                        popupImage.open({ imgSrcUrl: cards.link, namePlaceText: cards.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
-                    },
-                    api: api
-                }, '#newplaces', user);
-                const cardElement = createdCard.generate();
-                // console.log(createdCard);
-                cardsContainer.addItem(cardElement);
-            }
-        }, '.places__list')
-        cardsContainer.rendererItems();
-    })
-    /*
-    const section = new Section({
-        renderer: (item) => {
-            const card = createdCard()
-            section.addItem()
+    const cardsContainer = new Section({
+        items: cards,
+        renderer: (cards) => {
+            const createdCard = new Card({
+                data: cards,
+                handleCardClick: () => {
+                    popupImage.open({ imgSrcUrl: cards.link, namePlaceText: cards.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
+                },
+                api: api
+            }, '#newplaces', user, PopupWithImage.closeEventListeners);
+            const cardElement = createdCard.generate();
+            // console.log(createdCard);
+            cardsContainer.addItem(cardElement);
         }
-    })*/
-    // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
-    // card.generate();
-    // console.log(card);
-    //})
+    }, '.places__list')
+    cardsContainer.rendererItems();
+})
+const modalAddPlace = new PopupWithForm('#popupEditPlace');
+/*
+const section = new Section({
+    renderer: (item) => {
+        const card = createdCard()
+        section.addItem()
+    }
+})*/
+// const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
+// card.generate();
+// console.log(card);
+//})
 
 
 const classFormObj = {

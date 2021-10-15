@@ -1,16 +1,17 @@
-export default class Popup {
+export class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this);
-        this._setPopupCloseEventListeners = this.setPopupCloseEventListeners.bind(this);
+        //  this.setPopupCloseEventListeners = this.setPopupCloseEventListeners.bind(this);
         //this.close = this.close.bind(this);
     }
 
     open() {
         console.log("Hello from class Popup");
         this._popup.classList.add('popup_opened');
-        console.log(this._popup)
         document.addEventListener('keydown', this._handleEscClose);
+        this.setPopupCloseEventListeners()
+        this.closeEventListeners('.popup__button-close')
     }
     close() {
         this._popup.classList.remove('popup_opened');
@@ -29,7 +30,7 @@ export default class Popup {
         })
     }
 
-    setEventListeners(btnClose) {
+    closeEventListeners(btnClose) {
         this._popup.querySelector(btnClose).addEventListener('click', () => {
             this.close()
         });
@@ -53,33 +54,29 @@ export class PopupWithImage extends Popup {
     }
 
 }
-class PopupWithForm extends Popup {
+export class PopupWithForm extends Popup {
     constructor(popapSlector, handleSubmit) {
         super(popapSlector)
         this._form = this._popup.querySelector(".popup__container-form");
-        this._handleSubmit = handleSubmit
+        //this._handleSubmit = handleSubmit;
     }
 
     _getInputvalues() {
         // this._inputValues = Array.from(this._form.querySelectorAll(".popup__field")).map(el => el.value);
-        this._inputList = this._form.querySelectorAll(".popup__field");
-        this._formsValues = Array.from(this._inputList).map((input) => {
-            return {
-                [input.id]: input.value
-            }
-        })
-
-
-        // this._formValue = {}
-        // this._inputList.forEach((element) => {
-        //     this._formValue[element] = element.value;
-        //     {name:'Jak'}
-        // })
+        this._inputList = [...this._form.querySelectorAll(".popup__field")];
+        return this._inputList
     }
 
-    setEventListeners(btnClose) {
-        super.setEventListeners(btnClose);
-        this._form.addEventListener('submit', this._handleSubmit)
+
+    // this._formValue = {}
+    // this._inputList.forEach((element) => {
+    //     this._formValue[element] = element.value;
+    //     {name:'Jak'}
+    // })
+
+    closeEventListeners(btnClose) {
+        super.closeEventListeners(btnClose);
+        //this._form.addEventListener('submit', this._handleSubmit);
     }
 
     close() {
