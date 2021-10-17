@@ -29,17 +29,14 @@ const popupImage = new PopupWithImage("#popupBigPlace");
 
 
 Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
-    console.log(cards)
-    console.log(user);
-    // console.log(cards[20]);
-
-    const cardsContainer = new Section({
-        items: cards,
-        renderer: (cards) => {
+        console.log(cards)
+        console.log(user);
+        // console.log(cards[20]);
+        const renderer = (cardsEl) => {
             const createdCard = new Card({
-                data: cards,
+                data: cardsEl,
                 handleCardClick: () => {
-                    popupImage.open({ imgSrcUrl: cards.link, namePlaceText: cards.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
+                    popupImage.open({ imgSrcUrl: cardsEl.link, namePlaceText: cardsEl.name, imgSelector: "#bigPicturePlace", textImgSelector: "#bigPictureName" })
                 },
                 api: api
             }, '#newplaces', user, PopupWithImage.closeEventListeners);
@@ -47,21 +44,23 @@ Promise.all([api.getCards(), api.getNameData()]).then(([cards, user]) => {
             // console.log(createdCard);
             cardsContainer.addItem(cardElement);
         }
-    }, '.places__list')
-    cardsContainer.rendererItems();
-})
-const modalAddPlace = new PopupWithForm('#popupEditPlace');
-/*
+        const cardsContainer = new Section({
+            items: cards,
+            renderer: renderer(cards)
+        }, '.places__list')
+        cardsContainer.rendererItems();
+    })
+    /*
 const section = new Section({
     renderer: (item) => {
         const card = createdCard()
         section.addItem()
     }
 })*/
-// const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
-// card.generate();
-// console.log(card);
-//})
+    // const card = new Card({ data: cards[20], handleCardClick: () => {}, user }, "#newplaces")
+    // card.generate();
+    // console.log(card);
+    //})
 
 
 const classFormObj = {
