@@ -1,3 +1,134 @@
+// ====================================================================
+
+export class Api {
+    constructor(configApi) {
+        this._config = configApi;
+        this._token = this._config.token;
+        this._urlServ = this._config.urlServ;
+
+        this._checkData = this._checkData.bind(this);
+    }
+
+    _checkData(res) {
+        if (res.ok) {
+            return res
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
+    sendCard(nameCard, url) {
+        return fetch(`${this._urlServ}cards`, {
+                method: 'POST',
+                headers: {
+                    authorization: this._token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: nameCard,
+                    link: url
+                })
+            })
+            .then((this._checkData))
+            .then((res) => {
+                return res.json()
+            })
+    };
+
+    getCards() {
+        const url = this._urlServ;
+        const token = this._token;
+        return fetch(`${url}cards`, {
+                headers: {
+                    authorization: token,
+                }
+            })
+            .then(this._checkData)
+            .then(res => res.json())
+    }
+
+    getNameData() {
+        return fetch(`${this._urlServ}users/me`, {
+                headers: {
+                    authorization: this._token,
+                }
+            })
+            .then(this._checkData)
+            .then(res => res.json())
+    }
+
+    deleteCard(card) {
+        return fetch(`${this._urlServ}cards/${card._id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: this._token,
+                }
+            })
+            .then(this._checkData)
+    }
+
+    likesAdd(card) {
+        return fetch(`${this._urlServ}cards/likes/${card._id}`, {
+                method: 'PUT',
+                headers: {
+                    authorization: this._token,
+                }
+            })
+            .then(this._checkData)
+            .then((res) => {
+                return res.json()
+            })
+    };
+    likesRemove(card) {
+        return fetch(`${this._urlServ}cards/likes/${card._id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: this._token,
+                }
+            })
+            .then(this._checkData)
+            .then((res) => {
+                return res.json()
+            })
+    }
+    sendNamePersonal(profileName, profileDescription) {
+        return fetch(`${this._urlServ}users/me`, {
+                method: 'PATCH',
+                headers: {
+                    authorization: this._token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: profileName,
+                    about: profileDescription,
+                })
+            })
+            .then(this._checkData)
+            .then((res) => {
+                return res.json()
+            })
+    };
+    sendAvatarPersonal(avatarUrl) {
+        return fetch(`${this._urlServ}users/me/avatar`, {
+                method: 'PATCH',
+                headers: {
+                    authorization: this._token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    avatar: avatarUrl,
+                })
+            })
+            .then(this._checkData)
+            .then((res) => {
+                return res.json()
+            })
+    }
+
+}
+
+// ====================================================================
+
+
 const token = '1898bf9a-848d-4e76-8628-36735272cef2';
 const urlServ = 'https://nomoreparties.co/v1/plus-cohort-1/';
 
@@ -18,6 +149,7 @@ export function sendCard(nameCard, url) {
             return res.json()
         })
 };
+/*
 export function getCards() {
     return fetch(`${urlServ}cards`, {
             headers: {
@@ -70,7 +202,8 @@ export function likesRemove(card) {
         .then((res) => {
             return res.json()
         })
-}
+}*/
+/*
 export function sendNamePersonal(profileName, profileDescription) {
     return fetch(`${urlServ}users/me`, {
             method: 'PATCH',
@@ -104,7 +237,8 @@ export function sendAvatarPersonal(avatarUrl) {
             return res.json()
         })
 }
-const checkData = (res) => {
+*/
+const checkData = res => {
     if (res.ok) {
         return res
     }

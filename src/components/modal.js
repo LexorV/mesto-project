@@ -1,6 +1,4 @@
-let formTemp;
 export function openPopup(form) {
-    formTemp = form;
     form.classList.add('popup_opened');
     document.addEventListener('keydown', handleESC);
 }
@@ -11,7 +9,7 @@ export function closePopup(form) {
 
 function handleESC(evt) {
     if (evt.key === 'Escape') {
-        closePopup(formTemp);
+        closePopup(document.querySelector(".popup_opened"));
     };
 }
 
