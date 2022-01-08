@@ -13,7 +13,7 @@
 .profile__container-name-edit{display:flex}
 @media screen and (max-width:320px){.profile__button-icon{height:16px;width:16px}}
 .profile__edit-button{background-color:#000;background-position:50%;border:1px solid #fff;height:24px;margin:37px 0 0;padding:0;width:24px}.profile__edit-button:hover{cursor:pointer;opacity:.6}@media screen and (max-width:546px){.profile__edit-button{align-items:center;display:flex;height:18px;justify-content:center;margin-top:30px;width:18px}}
-.profile__avatar-button{background-color:transparent;border:none;border-radius:50%;cursor:pointer;max-height:120px;max-width:120px;position:relative;z-index:3}.profile__avatar-button:hover div{display:flex}
+.profile__avatar-button{background-color:transparent;border:none;border-radius:50%;cursor:pointer;max-height:120px;max-width:120px;position:relative;z-index:1}.profile__avatar-button:hover div{display:flex}
 .profile__avatar-edit-fond{align-items:center;background-color:rgba(0,0,0,.8);border-radius:50%;display:none;justify-content:center;left:-1px;min-height:120px;min-width:120px;position:absolute;top:-1px;z-index:4}
 .profile__edit-avatar-picture{height:26px;width:26px}
 .places{margin:0}@media screen and (max-width:1080px){.places{padding:0 19px}}
@@ -29,7 +29,7 @@
 
 .place__container-heart{align-self:center;display:flex;flex-direction:column}
 .place__counter-heart{font-size:13px;font-weight:400;line-height:16px;margin:0;padding-left:8px;padding-top:3px}
-.popup{background-color:rgba(0,0,0,.5);display:flex;height:0;justify-content:center;left:0;margin:0;opacity:0;overflow:hidden;position:fixed;top:0;transition:height 0ms .4s,opacity .4s 0ms;width:100%;z-index:1}
+.popup{background-color:rgba(0,0,0,.5);display:flex;height:0;justify-content:center;left:0;margin:0;opacity:0;overflow:hidden;position:fixed;top:0;transition:height 0ms .4s,opacity .4s 0ms;width:100%;z-index:2}
 .popup__container{align-items:center;align-self:center;display:flex;flex-direction:column;min-width:488px;position:absolute}@media screen and (max-width:500px){.popup__container{min-width:282px}}
 .popup_opened{height:100%;opacity:1;transition:height 0ms 0ms,opacity .7s 0ms}
 .popup__button-save{background-color:transparent;border:1px solid #000;border-radius:2px;color:#000;font-size:18px;font-style:normal;font-weight:400;height:50px;letter-spacing:0;line-height:22px;margin-top:18px;opacity:.2;text-align:center;width:358px}@media screen and (max-width:500px){.popup__button-save{font-size:14px;line-height:17px;max-width:238px}}
